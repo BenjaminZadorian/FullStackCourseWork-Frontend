@@ -11,6 +11,7 @@
         placeholder="Search the name or category of your lessons..." v-model="searchTerm"></input>
     </section>
 
+    <!-- Categories Option -->
     <section class="col-md-3 mb-4">
       <select class="form-select" v-model="selectedCategory">
         <option value="">All Categories</option>
@@ -27,7 +28,7 @@
           <i class="fa-solid fa-angle-up"></i>
         </button>
         <!-- Descending Search Button -->
-        <button class="btn btn-outline-secondary" :class="{ active: sortOrder === 'desc' }" @click="sortOrder = 'desc'"
+        <button class="btn btn-outline-secondary" :class="{ active: sortOrder === 'descending' }" @click="sortOrder = 'descending'"
           title="Descending">
           <i class="fa-solid fa-angle-down"></i>
         </button>
@@ -37,7 +38,7 @@
     <!-- Classes List -->
      <section class="row gy-4">
       <!-- For loop creating all class cards for the classes that are available -->
-      <div class="col-md-4" v-for="classObject in classes" :key="classObject.id">
+      <div class="col-md-4" v-for="classObject in displayedClasses" :key="classObject.id">
         <!-- Main card part -->
         <div class="card h-100 shadow-sm">
           <div class="card-body">
@@ -60,15 +61,17 @@
 </template>
 
 <script setup>
-import { ref, computed } from 'vue'
+import { ref, computed, onMounted } from 'vue'
 
 // Variables for searching and filtering lessons
 const searchTerm = ref('')
-const sortOrder = ref('ascending')
 const selectedCategory = ref('')
 
+// Can be either ascending or descending
+const sortOrder = ref('ascending')
+
 // Temp test data for classes before backend is implemented
-  const classes = ref([
+  const classesTemp = ref([
     { id: 1, Subject: 'Music', Location: 'London', Price: 10.00, Spaces: 5, icon: 'fa-solid fa-music' },
     { id: 2, Subject: 'Art', Location: 'Manchester', Price: 12.00, Spaces: 8, icon: 'fa-solid fa-paintbrush'},
     { id: 3, Subject: 'Cooking', Location: 'Birmingham', Price: 15.00, Spaces: 6, icon: 'fa-solid fa-utensils' },
@@ -81,6 +84,52 @@ const selectedCategory = ref('')
     { id: 10, Subject: 'History', Location: 'Cardiff', Price: 9.00, Spaces: 7, icon: 'fa-solid fa-landmark' }
   ])
 
+// This will hold classes fetched from the backend when I implement MongoDB
+const classes = ref([])
+
+const displayedClasses = computed(() => {
+  // Copy array
+  let result = [...classesTemp.value]
+
+  // If a searchTerm exists, then filter the displayedClasses based on it
+  if (searchTerm.value) {
+    result = result.filter(a =>
+      a.Subject.toLowerCase().includes(searchTerm.value.toLowerCase())
+    )
+  }
+
+  if (selectedCategory.value) {
+    if (selectedCategory.value == 'Subject') {
+      result = result.sort((a, b) => 
+        a.Subject.localeCompare(b.Subject))
+    }
+
+    if (selectedCategory.value == 'Location') {
+      result = result.sort((a, b) =>
+        a.Location.localeCompare(b.Location))
+    }
+
+    if (selectedCategory.value == 'Price') {
+      result = result.sort((a, b) =>
+        a.Price - b.Price)
+    }
+
+    if (selectedCategory.value == 'Spaces') {
+      result = result.sort((a, b) =>
+        a.Spaces - b.Spaces)
+    }
+  }
+
+  console.log(sortOrder.value);
+
+  if (sortOrder.value == 'descending') {
+    result.reverse()
+  }
+
+  return result
+})
+
+
 </script>
 
 <!--  
@@ -91,13 +140,13 @@ each lesson should have at least (5%): Subject (1%), Location (1%),
 Price (1%), Spaces (or availability: this indicates how many spaces are
 left) (1%), a Font Awesome icon (or an Image) (1%) -- DONE
 
-v-for must be used for the display of the lesson list
+v-for must be used for the display of the lesson list -- DONE
 
 SORTING FUNCTIONALITY
 -------------------------
 the user can choose to sort the lessons by one of the following attributes
 (8%): subject (2%), location (2%), price (2%), or spaces (i.e. availability)
-(2%)
+(2%) -- DONE
 
 there must be an option to sort in ascending or descending order (order
 dependent on the sorting attribute selected), which should work for each
