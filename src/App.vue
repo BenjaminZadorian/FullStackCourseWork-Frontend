@@ -8,7 +8,6 @@
 
         <main class="flex-fill">
           <RouterView /> <!-- this makes sure that the pages from the router are loaded  -->
-          <h1>install nvm</h1>
         </main>
 
         <Footer />

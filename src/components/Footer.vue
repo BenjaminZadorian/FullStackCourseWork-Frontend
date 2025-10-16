@@ -15,7 +15,6 @@
                             </h6>
                         </div>
                     </div>
-
                 </section>
 
                 <!-- Break to seperate the footer in two -->
@@ -51,7 +50,6 @@ footer {
 const links = [
     { text: 'Home', path: '/' },
     { text: 'Classes', path: '/classes' },
-    { text: 'Profile', path: '/profile' },
     { text: 'About Us', path: '/about' }
 ]
 </script>
