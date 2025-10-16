@@ -53,7 +53,7 @@ const links = [
 <style scoped>
 
 .navbar {
-  background-color: #ffede7;
+  background-color: #FFE5D9;
 }
 
 .navbar-brand {

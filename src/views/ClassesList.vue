@@ -12,7 +12,7 @@
     </section>
 
     <!-- Categories Option -->
-    <section class="col-md-3 mb-4">
+    <section class="mb-4 text-center py-2">
       <select class="form-select" v-model="selectedCategory">
         <option value="">All Categories</option>
         <option value="Subject">Subject</option>
@@ -21,7 +21,7 @@
         <option value="Spaces">Spaces</option>
       </select>
 
-      <div class="btn-group" role="group">
+      <div id="button-group" class="btn-group ms-2" role="group">
         <!-- Ascending Search buttons -->
         <button class="btn btn-outline-secondary" :class="{ active: sortOrder == 'ascending' }"
           @click="sortOrder = 'ascending'" title="Ascending">
@@ -40,8 +40,8 @@
       <!-- For loop creating all class cards for the classes that are available -->
       <div class="col-md-4" v-for="classObject in displayedClasses" :key="classObject.id">
         <!-- Main card part -->
-        <div class="card h-100 shadow-sm">
-          <div class="card-body">
+        <div id="class-card" class="card h-100 shadow-sm">
+          <div id="card-main-body"  class="card-body">
             <i :class="classObject.icon"></i>
             <h5 class="card-title">{{ classObject.Subject }}</h5>
             <p class="card-text text-muted small">{{ classObject.Location }}</p>
@@ -52,13 +52,29 @@
             <li class="list-group-item">Spaces Available : {{ classObject.Spaces }}</li>
           </ul>
           <div class="card-footer text-center bg-white">
-            <button class="btn w-100 btn-primary">Book Now</button>
+            <button id="book-now-btn" class="btn w-100">Book Now</button>
           </div>
         </div>
       </div>
      </section>
   </div>
 </template>
+
+<style>
+#class-card, .list-group-item {
+  background-color: #f9f9f9;
+}
+
+#button-group {
+  padding-top: 20px;
+}
+
+#book-now-btn {
+  background-color: #9D8189;
+  color: white;
+}
+
+</style>
 
 <script setup>
 import { ref, computed, onMounted } from 'vue'
