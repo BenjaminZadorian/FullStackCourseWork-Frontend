@@ -52,7 +52,7 @@
             <li class="list-group-item">Spaces Available : {{ classObject.Spaces }}</li>
           </ul>
           <div class="card-footer text-center bg-white">
-            <button id="book-now-btn" class="btn w-100">Book Now</button>
+            <button id="book-now-btn" class="btn w-100">Add to Cart</button>
           </div>
         </div>
       </div>
@@ -166,6 +166,21 @@ the user can choose to sort the lessons by one of the following attributes
 
 there must be an option to sort in ascending or descending order (order
 dependent on the sorting attribute selected), which should work for each
-of the attributes (2%)
+of the attributes (2%) -- DONE
+
+ADD TO CART FUNCTIONALITY
+--------------------------
+each lesson must have an “Add to Cart” button (1%). -- DONE
+
+the button is always visible, and only enabled when space is larger than
+0 (1%).
+
+clicking the button once (related interactions implemented by using v-on)
+will add one space to the shopping cart, reducing the remaining space
+by one (2%).
+
+once there is no more space, i.e. space = 0, the “Add to cart” button
+should be disabled but still visible, i.e. clicking it will not further reduce
+“space” nor add lessons to the cart (1%).
 
  -->
