@@ -50,6 +50,8 @@ footer {
 const links = [
     { text: 'Home', path: '/' },
     { text: 'Classes', path: '/classes' },
-    { text: 'About Us', path: '/about' }
+    { text: 'About Us', path: '/about' },
+    { text: 'Register', path: '/register' },
+    { text: 'Login', path: '/login' }
 ]
 </script>
