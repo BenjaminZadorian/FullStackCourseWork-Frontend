@@ -1,4 +1,9 @@
 <script setup>
+// inject the StoreData class into the App to be used throughout the project
+import { provide } from 'vue';
+import { store } from './StoreData';
+
+provide("store", store);
 </script>
 
 <template>

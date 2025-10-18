@@ -24,7 +24,7 @@
         <!-- Shopping Cart Icon link -->
         <li class="nav-item">
           <router-link class="nav-link text-dark" to="/cart">
-            <i class="bi bi-cart3 fs-4"></i>
+            <i class="bi bi-cart3 fs-4">{{ cartCount }}</i>
           </router-link>
         </li>
       </div>
@@ -33,7 +33,13 @@
 </template>
 
 <script setup>
-import { ref } from 'vue'
+import { ref, inject, computed} from 'vue'
+
+// inject store into navbar so that I can display the counter for how many items are in the cart
+const store = inject("store");
+
+// get cart count
+const cartCount = computed(() => store.cartCount);
 
 // Toggle state for collapse menu
 const isOpen = ref(false)
@@ -45,10 +51,10 @@ function toggleMenu() {
 const links = [
   { text: 'Home', path: '/' },
   { text: 'Classes', path: '/classes' },
-  { text: 'Profile', path: '/profile' },
-  { text: 'About Us', path: '/about' },
   { text: 'Register', path: '/register' },
-  { text: 'Login', path: '/login' }
+  { text: 'Login', path: '/login' },
+  { text: 'Profile', path: '/profile' },
+  { text: 'About Us', path: '/about' }
 ]
 </script>
 

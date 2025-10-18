@@ -51,9 +51,20 @@
             <li class="list-group-item">£{{ classObject.Price }}.00</li>
             <li class="list-group-item">Spaces Available : {{ classObject.Spaces }}</li>
           </ul>
+
+          <!-- Use conditionals to create a dynamic button -->
           <div class="card-footer text-center bg-white">
-            <button id="book-now-btn" class="btn w-100">Add to Cart</button>
+            <button 
+            id="book-now-btn" 
+            class="btn w-100" 
+            @click="toggleAddToCartBtn(classObject)"
+            :style="store.existsInCart(classObject.id) ? 'background-color: #e06689; color: black;' : 'background-color: #9D8189; color: white;'">
+            
+            {{ store.existsInCart(classObject.id) ? 'Remove from Cart' : 'Add to Cart' }}
+
+          </button>
           </div>
+
         </div>
       </div>
      </section>
@@ -77,7 +88,10 @@
 </style>
 
 <script setup>
-import { ref, computed, onMounted } from 'vue'
+import { ref, computed, onMounted, inject } from 'vue'
+
+// inject store into the class list to be able to update the users cart
+const store = inject("store");
 
 // Variables for searching and filtering lessons
 const searchTerm = ref('')
@@ -145,6 +159,21 @@ const displayedClasses = computed(() => {
   return result
 })
 
+function toggleAddToCartBtn(classItem) {
+  if (store.existsInCart(classItem.id)) {
+    store.removeFromCart(classItem.id)
+  } else {
+    store.addToCart(classItem)
+  }
+}
+
+function addToCart(classItem) {
+  store.addToCart(classItem);
+}
+
+function removeFromCart(classItem) {
+  store.removeFromCart(classItem);
+}
 
 </script>
 
