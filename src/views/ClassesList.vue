@@ -58,9 +58,13 @@
             id="book-now-btn" 
             class="btn w-100" 
             @click="toggleAddToCartBtn(classObject)"
-            :style="store.existsInCart(classObject.id) ? 'background-color: #e06689; color: black;' : 'background-color: #9D8189; color: white;'">
-            
-            {{ store.existsInCart(classObject.id) ? 'Remove from Cart' : 'Add to Cart' }}
+            :style="store.existsInCart(classObject.id) ? 'background-color: #e06689; color: black;' : 'background-color: #9D8189; color: white;'"
+            >
+
+            <!-- Use v-if to change the text within the button depending on if its in the cart or is full yet -->
+            <span v-if="classObject.Spaces === 0 && !store.existsInCart(classObject.id)" style="opacity: 0.5; cursor: not-allowed;">Full</span>
+            <span v-else-if="store.existsInCart(classObject.id)" style="">Remove from Cart</span>
+            <span v-else>Add to Cart</span>
 
           </button>
           </div>
@@ -104,7 +108,7 @@ const sortOrder = ref('ascending')
   const classesTemp = ref([
     { id: 1, Subject: 'Music', Location: 'London', Price: 10.00, Spaces: 5, icon: 'fa-solid fa-music' },
     { id: 2, Subject: 'Art', Location: 'Manchester', Price: 12.00, Spaces: 8, icon: 'fa-solid fa-paintbrush'},
-    { id: 3, Subject: 'Cooking', Location: 'Birmingham', Price: 15.00, Spaces: 6, icon: 'fa-solid fa-utensils' },
+    { id: 3, Subject: 'Cooking', Location: 'Birmingham', Price: 15.00, Spaces: 1, icon: 'fa-solid fa-utensils' },
     { id: 4, Subject: 'Religious', Location: 'Leeds', Price: 8.00, Spaces: 7, icon: 'fa-solid fa-cross' },
     { id: 5, Subject: 'Photography', Location: 'Liverpool', Price: 20.00, Spaces: 5, icon: 'fa-solid fa-camera' },
     { id: 6, Subject: 'Gym', Location: 'Newcastle', Price: 18.00, Spaces: 6, icon: 'fa-solid fa-dumbbell'},
@@ -162,54 +166,59 @@ const displayedClasses = computed(() => {
 function toggleAddToCartBtn(classItem) {
   if (store.existsInCart(classItem.id)) {
     store.removeFromCart(classItem.id)
-  } else {
-    store.addToCart(classItem)
+    classItem.Spaces++;
+  } else if (classItem.Spaces > 0){
+    store.addToCart(classItem);
+    classItem.Spaces--;
   }
 }
 
-function addToCart(classItem) {
-  store.addToCart(classItem);
-}
-
-function removeFromCart(classItem) {
-  store.removeFromCart(classItem);
-}
 
 </script>
 
 <!--  
-there should be at least 10 lessons, and each lesson should have 5
-spaces (or availability) -- DONE
-
-each lesson should have at least (5%): Subject (1%), Location (1%),
-Price (1%), Spaces (or availability: this indicates how many spaces are
-left) (1%), a Font Awesome icon (or an Image) (1%) -- DONE
-
-v-for must be used for the display of the lesson list -- DONE
-
-SORTING FUNCTIONALITY
--------------------------
-the user can choose to sort the lessons by one of the following attributes
-(8%): subject (2%), location (2%), price (2%), or spaces (i.e. availability)
-(2%) -- DONE
-
-there must be an option to sort in ascending or descending order (order
-dependent on the sorting attribute selected), which should work for each
-of the attributes (2%) -- DONE
 
 ADD TO CART FUNCTIONALITY
 --------------------------
 each lesson must have an “Add to Cart” button (1%). -- DONE
 
 the button is always visible, and only enabled when space is larger than
-0 (1%).
-
-clicking the button once (related interactions implemented by using v-on)
-will add one space to the shopping cart, reducing the remaining space
-by one (2%).
+0 (1%). -- DONE
 
 once there is no more space, i.e. space = 0, the “Add to cart” button
 should be disabled but still visible, i.e. clicking it will not further reduce
-“space” nor add lessons to the cart (1%).
+“space” nor add lessons to the cart (1%). -- DONE
+
+-------------------------
+SHOPPING CART FUNCTIONALITY
+
+the shopping cart button should only be enabled after at least one lesson
+is added to cart (1%)
+
+clicking the shopping cart button should show the cart page, and clicking
+the button again goes back to the lesson page (1%)
+
+the shopping cart, in the cart page, should show all the lessons added
+(1%)
+
+in the shopping cart page, the user should be able to remove lessons
+from the shopping cart; the removed lesson is added back to the lesson
+list (in the lesson page) (2%)
+
+----------------------------
+CHECKOUT FUNCTIONALITY
+
+the checkout is part of the shopping cart page (not part of the lessons
+page) (1%)
+
+the “checkout” button is always visible and only enabled (clickable) after
+valid “Name” and “Phone” are provided (2%)
+
+the “Name” must be letters only and the “Phone” must be numbers only;
+the check must be done using JavaScript (suggestion: regular
+expressions) (2%)
+
+clicking the “checkout” button should display a message confirming the
+order has been submitted (1%)
 
  -->
