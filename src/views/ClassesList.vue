@@ -174,38 +174,3 @@ function toggleAddToCartBtn(classItem) {
 }
 
 </script>
-
-<!--  
--------------------------
-SHOPPING CART FUNCTIONALITY
-
-the shopping cart button should only be enabled after at least one lesson
-is added to cart (1%) -- DONE
-
-clicking the shopping cart button should show the cart page, and clicking
-the button again goes back to the lesson page (1%) -- DONE
-
-the shopping cart, in the cart page, should show all the lessons added
-(1%) -- DONE
-
-in the shopping cart page, the user should be able to remove lessons
-from the shopping cart; the removed lesson is added back to the lesson
-list (in the lesson page) (2%) -- DONE
-
-----------------------------
-CHECKOUT FUNCTIONALITY
-
-the checkout is part of the shopping cart page (not part of the lessons
-page) (1%) -- DONE
-
-the “checkout” button is always visible and only enabled (clickable) after
-valid “Name” and “Phone” are provided (2%) -- DONE
-
-the “Name” must be letters only and the “Phone” must be numbers only;
-the check must be done using JavaScript (suggestion: regular
-expressions) (2%) -- DONE
-
-clicking the “checkout” button should display a message confirming the
-order has been submitted (1%) -- DONE
-
- -->
