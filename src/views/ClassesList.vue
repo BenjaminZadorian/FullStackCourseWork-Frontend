@@ -1,0 +1,211 @@
+<template>
+  <div class="container py-5">
+    <section class="text-center mb-5">
+      <h1 class="text-center mb-4">Available Classes</h1>
+      <p class="lead text-muted">Browse through our selection of available classes and book your spot today!</p>
+    </section>
+
+    <!-- Search / Filter -->
+    <section class="d-flex justify-content-center mb-4">
+      <input type="text" class="form-control w-50 shadow-sm"
+        placeholder="Search the name or category of your lessons..." v-model="searchTerm"></input>
+    </section>
+
+    <!-- Categories Option -->
+    <section class="mb-4 text-center py-2">
+      <select class="form-select" v-model="selectedCategory">
+        <option value="">All Categories</option>
+        <option value="Subject">Subject</option>
+        <option value="Location">Location</option>
+        <option value="Price">Price</option>
+        <option value="Spaces">Spaces</option>
+      </select>
+
+      <div id="button-group" class="btn-group ms-2" role="group">
+        <!-- Ascending Search buttons -->
+        <button class="btn btn-outline-secondary" :class="{ active: sortOrder == 'ascending' }"
+          @click="sortOrder = 'ascending'" title="Ascending">
+          <i class="fa-solid fa-angle-up"></i>
+        </button>
+        <!-- Descending Search Button -->
+        <button class="btn btn-outline-secondary" :class="{ active: sortOrder === 'descending' }" @click="sortOrder = 'descending'"
+          title="Descending">
+          <i class="fa-solid fa-angle-down"></i>
+        </button>
+      </div>
+    </section>
+
+    <!-- Classes List -->
+     <section class="row gy-4">
+      <!-- For loop creating all class cards for the classes that are available -->
+      <div class="col-md-4" v-for="classObject in displayedClasses" :key="classObject.id">
+        <!-- Main card part -->
+        <div id="class-card" class="card h-100 shadow-sm">
+          <div id="card-main-body"  class="card-body">
+            <i :class="classObject.icon"></i>
+            <h5 class="card-title">{{ classObject.Subject }}</h5>
+            <p class="card-text text-muted small">{{ classObject.Location }}</p>
+          </div>
+          <!-- Pricing and Spaces available -->
+          <ul class="list-group list-group-flush">
+            <li class="list-group-item">£{{ classObject.Price }}.00</li>
+            <li class="list-group-item">Spaces Available : {{ classObject.Spaces }}</li>
+          </ul>
+
+          <!-- Use conditionals to create a dynamic button -->
+          <div class="card-footer text-center bg-white">
+            <button 
+            id="book-now-btn" 
+            class="btn w-100" 
+            @click="toggleAddToCartBtn(classObject)"
+            :style="store.existsInCart(classObject.id) ? 'background-color: #e06689; color: black;' : 'background-color: #9D8189; color: white;'"
+            >
+
+            <!-- Use v-if to change the text within the button depending on if its in the cart or is full yet -->
+            <span v-if="classObject.Spaces === 0 && !store.existsInCart(classObject.id)" style="opacity: 0.5; cursor: not-allowed;">Full</span>
+            <span v-else-if="store.existsInCart(classObject.id)" style="">Remove from Cart</span>
+            <span v-else>Add to Cart</span>
+
+          </button>
+          </div>
+
+        </div>
+      </div>
+     </section>
+  </div>
+</template>
+
+<style>
+#class-card, .list-group-item {
+  background-color: #f9f9f9;
+}
+
+#button-group {
+  padding-top: 20px;
+}
+
+#book-now-btn {
+  background-color: #9D8189;
+  color: white;
+}
+
+</style>
+
+<script setup>
+import { ref, computed, onMounted, inject } from 'vue'
+
+// inject store into the class list to be able to update the users cart
+const store = inject("store");
+
+// Variables for searching and filtering lessons
+const searchTerm = ref('')
+const selectedCategory = ref('')
+
+// Can be either ascending or descending
+const sortOrder = ref('ascending')
+
+// Temp test data for classes before backend is implemented
+  const classesTemp = ref([
+    { id: 1, Subject: 'Music', Location: 'London', Price: 10.00, Spaces: 5, icon: 'fa-solid fa-music' },
+    { id: 2, Subject: 'Art', Location: 'Manchester', Price: 12.00, Spaces: 8, icon: 'fa-solid fa-paintbrush'},
+    { id: 3, Subject: 'Cooking', Location: 'Birmingham', Price: 15.00, Spaces: 1, icon: 'fa-solid fa-utensils' },
+    { id: 4, Subject: 'Religious', Location: 'Leeds', Price: 8.00, Spaces: 7, icon: 'fa-solid fa-cross' },
+    { id: 5, Subject: 'Photography', Location: 'Liverpool', Price: 20.00, Spaces: 5, icon: 'fa-solid fa-camera' },
+    { id: 6, Subject: 'Gym', Location: 'Newcastle', Price: 18.00, Spaces: 6, icon: 'fa-solid fa-dumbbell'},
+    { id: 7, Subject: 'Programming', Location: 'Sheffield', Price: 25.00, Spaces: 9, icon: 'fa-solid fa-code'},
+    { id: 8, Subject: 'Writing', Location: 'Bristol', Price: 14.00, Spaces: 10, icon: 'fa-solid fa-pen-nib'},
+    { id: 9, Subject: 'Design & Technology', Location: 'Nottingham', Price: 11.00, Spaces: 5, icon: 'fa-solid fa-object-ungroup'},
+    { id: 10, Subject: 'History', Location: 'Cardiff', Price: 9.00, Spaces: 7, icon: 'fa-solid fa-landmark' }
+  ])
+
+// This will hold classes fetched from the backend when I implement MongoDB
+const classes = ref([])
+
+const displayedClasses = computed(() => {
+  // Copy array
+  let result = [...classesTemp.value]
+
+  // If a searchTerm exists, then filter the displayedClasses based on it
+  if (searchTerm.value) {
+    result = result.filter(a =>
+      a.Subject.toLowerCase().includes(searchTerm.value.toLowerCase())
+    )
+  }
+
+  if (selectedCategory.value) {
+    if (selectedCategory.value == 'Subject') {
+      result = result.sort((a, b) => 
+        a.Subject.localeCompare(b.Subject))
+    }
+
+    if (selectedCategory.value == 'Location') {
+      result = result.sort((a, b) =>
+        a.Location.localeCompare(b.Location))
+    }
+
+    if (selectedCategory.value == 'Price') {
+      result = result.sort((a, b) =>
+        a.Price - b.Price)
+    }
+
+    if (selectedCategory.value == 'Spaces') {
+      result = result.sort((a, b) =>
+        a.Spaces - b.Spaces)
+    }
+  }
+
+  console.log(sortOrder.value);
+
+  if (sortOrder.value == 'descending') {
+    result.reverse()
+  }
+
+  return result
+})
+
+function toggleAddToCartBtn(classItem) {
+  if (store.existsInCart(classItem.id)) {
+    store.removeFromCart(classItem.id)
+    classItem.Spaces++;
+  } else if (classItem.Spaces > 0){
+    store.addToCart(classItem);
+    classItem.Spaces--;
+  }
+}
+
+</script>
+
+<!--  
+-------------------------
+SHOPPING CART FUNCTIONALITY
+
+the shopping cart button should only be enabled after at least one lesson
+is added to cart (1%) -- DONE
+
+clicking the shopping cart button should show the cart page, and clicking
+the button again goes back to the lesson page (1%) -- DONE
+
+the shopping cart, in the cart page, should show all the lessons added
+(1%) -- DONE
+
+in the shopping cart page, the user should be able to remove lessons
+from the shopping cart; the removed lesson is added back to the lesson
+list (in the lesson page) (2%) -- DONE
+
+----------------------------
+CHECKOUT FUNCTIONALITY
+
+the checkout is part of the shopping cart page (not part of the lessons
+page) (1%) -- DONE
+
+the “checkout” button is always visible and only enabled (clickable) after
+valid “Name” and “Phone” are provided (2%) -- DONE
+
+the “Name” must be letters only and the “Phone” must be numbers only;
+the check must be done using JavaScript (suggestion: regular
+expressions) (2%) -- DONE
+
+clicking the “checkout” button should display a message confirming the
+order has been submitted (1%) -- DONE
+
+ -->
