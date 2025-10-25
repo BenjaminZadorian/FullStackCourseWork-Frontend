@@ -146,9 +146,11 @@ function validateNumber() {
 }
 
 const isFormValid = computed(() => {
-  validateName();
-  validateNumber();
-  return !fullNameError.value && !phoneError.value;
+  if (store.user.isLoggedIn) {
+    validateName();
+    validateNumber();
+    return !fullNameError.value && !phoneError.value;
+  }
 });
 
 function handleCheckout() {

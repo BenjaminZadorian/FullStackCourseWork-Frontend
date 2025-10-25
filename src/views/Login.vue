@@ -40,7 +40,7 @@ function handleLogin() {
   // (For now, fake login)
   if (username.value && password.value) {
     store.login(username.value)
-    router.push('/cart') // or redirect to home
+    router.push('/')
   } else {
     alert('Please enter valid credentials.')
   }
