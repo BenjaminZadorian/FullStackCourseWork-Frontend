@@ -12,6 +12,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "nodemon": "^3.1.10",
     "vue": "^3.5.22",
     "vue-router": "^4.5.1"
   },

@@ -1,7 +1,7 @@
 <template>
   <nav class="navbar navbar-expand-lg fixed-top shadow-0">
     <div class="container d-flex align-items-center">
-      <!-- Return to homepage by clicking on the Company Name -->
+      <!-- Return to homepage by clicking on the Brand name -->
       <router-link class="navbar-brand fw-bold text-uppercase" to="/">Classly</router-link>
 
       <!-- Create menu button on smaller screens -->

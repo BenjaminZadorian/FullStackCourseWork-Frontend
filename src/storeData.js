@@ -3,6 +3,20 @@ import { reactive } from "vue";
 // export the reactive object of the cart object and cart functions so that they are global
 export const store = reactive({
     cart: [],
+    user: {
+        isLoggedIn: false,
+        name: ''
+    },
+
+    login(name) {
+        this.user.isLoggedIn = true;
+        this.user.name = name;
+    },
+
+    logout() {
+        this.user.isLoggedIn = false;
+        this.user.name = '';
+    },
 
     // Check if an item exists then add it to the cart if ti doesn't
     addToCart(item) {
