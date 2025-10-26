@@ -4,12 +4,12 @@
       <h1>Create Account</h1>
       <p class="text-muted">Register to start booking classes</p>
 
-      <div class="alert small mx-auto" style="max-width: 400px; background-color: #e06689; color: white;">
+      <div class="alert small mx-auto" style="max-width: 400px; background-color: #D8E2DC; color: black;">
         <p style="font-weight: bold;">Requirements</p>
         <ul>
             <li>Name must contain only letters & spaces</li>
             <li>Email must be a valid email address</li>
-            <li>Password must be between 8 & 13 characters</li>
+            <li>Password must be between 8 - 13 characters</li>
         </ul>
       </div>
 
