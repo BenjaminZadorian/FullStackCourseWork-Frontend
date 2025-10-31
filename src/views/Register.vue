@@ -21,24 +21,28 @@
       <div class="mb-3">
         <label class="form-label">Desired Username</label>
         <input v-model="name" type="text" class="form-control" :class="{ 'is-invalid' :  nameError}" required />
+        <div v-if="nameError" class="text-danger small mt-1">{{ nameError }}</div>
       </div>
 
     <!-- Email input -->
       <div class="mb-3">
         <label class="form-label">Email</label>
         <input v-model="email" type="email" class="form-control" :class="{ 'is-invalid' : emailError}" required />
+        <div v-if="emailError" class="text-danger small mt-1">{{ emailError }}</div>
       </div>
 
     <!-- Phone number input -->
      <div class="mb-3">
       <label class="form-label">Phone Number</label>
       <input v-model="phone" type="tel" class="form-control" :class="{ 'is-invalid' : phoneError}" required />
+      <div v-if="phoneError" class="text-danger small mt-1">{{ phoneError }}</div>
      </div>
 
     <!-- Password input -->
       <div class="mb-3">
         <label class="form-label">Password</label>
         <input v-model="password" type="password" class="form-control" :class="{ 'is-invalid' : passwordError}" required />
+        <div v-if="passwordError" class="text-danger small mt-1">{{ passwordError }}</div>
       </div>
 
     <!-- Login button -->
@@ -73,7 +77,12 @@ const email = ref('')
 const password = ref('')
 const phone = ref('');
 
-// Variable for the error messages if the input is not valid
+// Variables for the error messages if the input is not valid
+const nameError = ref('')
+const emailError = ref('')
+const passwordError = ref('')
+const phoneError = ref('')
+
 const formErrorMessage = ref('')
 
 // Regex patterns for the validation
@@ -83,31 +92,34 @@ const phoneRegex = /^[0-9]{10,15}$/
 
 function handleRegister() {
 
-    formErrorMessage.value = '';
+    nameError.value = ''
+    emailError.value = ''
+    passwordError.value = ''
+    phoneError.value = ''
 
     if (!name.value.match(nameRegex)) {
-        formErrorMessage.value = 'Name must contain letters only.'
-        return
+        nameError.value = 'Name must contain letters only.'
     }
 
     if (!emailRegex.test(email.value)) {
-        formErrorMessage.value = 'Please enter a valid email address.';
-        return
+        emailError.value = 'Please enter a valid email address.'
     }
 
     if (password.value.length < 8 || password.value.length > 13) {
-        formErrorMessage.value = 'Password must be between 8 and 13 characters'
-        return
+        passwordError.value = 'Password must be between 8 and 13 characters.'
     }
 
     if (!phoneRegex.test(phone.value)) {
-      formErrorMessage.value = 'Please enter a valid phone number (10 - 15 digits)'
+      phoneError.value = 'Phone number must be 10-15 digits.'
+    }
+    
+    if (nameError.value || emailError.value || passwordError.value || phoneError.value) {
       return
     }
 
-    if (!formErrorMessage.value) {
-        store.login(name.value, password.value, email.value, phone.value)
-        router.push('/')
-    }
+    // If no error has a value, register + login user in
+
+    store.login(name.value, password.value, email.value, phone.value)
+    router.push('/')
 }
 </script>
