@@ -29,6 +29,12 @@
         <input v-model="email" type="email" class="form-control" :class="{ 'is-invalid' : emailError}" required />
       </div>
 
+    <!-- Phone number input -->
+     <div class="mb-3">
+      <label class="form-label">Phone Number</label>
+      <input v-model="phone" type="tel" class="form-control" :class="{ 'is-invalid' : phoneError}" required />
+     </div>
+
     <!-- Password input -->
       <div class="mb-3">
         <label class="form-label">Password</label>
@@ -65,6 +71,7 @@ const store = inject('store')
 const name = ref('')
 const email = ref('')
 const password = ref('')
+const phone = ref('');
 
 // Variable for the error messages if the input is not valid
 const formErrorMessage = ref('')
@@ -72,23 +79,34 @@ const formErrorMessage = ref('')
 // Regex patterns for the validation
 const nameRegex = /^[A-Za-z\s]+$/
 const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+const phoneRegex = /^[0-9]{10,15}$/
 
 function handleRegister() {
 
+    formErrorMessage.value = '';
+
     if (!name.value.match(nameRegex)) {
         formErrorMessage.value = 'Name must contain letters only.'
+        return
     }
 
     if (!emailRegex.test(email.value)) {
         formErrorMessage.value = 'Please enter a valid email address.';
+        return
     }
 
     if (password.value.length < 8 || password.value.length > 13) {
         formErrorMessage.value = 'Password must be between 8 and 13 characters'
+        return
+    }
+
+    if (!phoneRegex.test(phone.value)) {
+      formErrorMessage.value = 'Please enter a valid phone number (10 - 15 digits)'
+      return
     }
 
     if (!formErrorMessage.value) {
-        store.login(name.value)
+        store.login(name.value, password.value, email.value, phone.value)
         router.push('/')
     }
 }

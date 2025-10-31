@@ -5,12 +5,18 @@ export const store = reactive({
     cart: [],
     user: {
         isLoggedIn: false,
-        name: ''
+        name: '',
+        email: '',
+        password: '',
+        phone : ''
     },
 
-    login(name) {
+    login(name, password, email, phone) {
         this.user.isLoggedIn = true;
         this.user.name = name;
+        this.user.password = password;
+        this.user.email = email;
+        this.user.phone = phone;
     },
 
     logout() {

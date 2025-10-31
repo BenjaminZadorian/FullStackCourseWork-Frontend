@@ -94,7 +94,7 @@
 </template>
 
 <script setup>
-import {ref, computed, inject} from 'vue'
+import {ref, computed, inject, onMounted, watch} from 'vue'
 
 // Variables for the regex to check the input information
 const fullNameRegex = /^[A-Za-z\s]+$/; // Only allows letters and spaces
@@ -109,6 +109,29 @@ const phoneNumber = ref("");
 // Variables for validating
 const fullNameError = ref("");
 const phoneError = ref("");
+
+// Auto fill in the phone and name if there is a logged in user
+onMounted(() => {
+  if (store.user.isLoggedIn) {
+    fullName.value = store.user.name || "";
+    phoneNumber.value = store.user.phone || "";
+  }
+});
+
+// Check if anything changes with the logged in user so that the variables can be changed
+watch(
+  () => store.user,
+  (newUser) => {
+    if (newUser.isLoggedIn) {
+      fullName.value = newUser.name || "";
+      phoneNumber.value = newUser.phone || "";
+    } else {
+      fullName.value = "";
+      phoneNumber.value = "";
+    }
+  },
+  { deep: true }
+);
 
 // Validate the full name and make sure that it is 2 words
 function validateName() {

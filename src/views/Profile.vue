@@ -1,5 +1,85 @@
-<script setup>
-</script>
 <template>
-  <h1>Profile</h1>
+  <div class="container py-5">
+    <!-- Page Header -->
+    <section class="text-center mb-5">
+      <h1 class="fw-bold">Your Profile</h1>
+      <p class="text-muted">View and update your personal information</p>
+    </section>
+
+    <!-- Profile Card -->
+    <div class="card mx-auto shadow-sm p-4" style="max-width: 600px;">
+      <div class="text-center mb-4">
+        <!-- Use an API later to generate a profile picture maybe -->
+        <img
+          alt="Profile Avatar"
+          class="rounded-circle mb-3"
+        />
+        <h4>{{ user.name }}</h4>
+        <p class="text-muted">{{ user.email }}</p>
+      </div>
+
+      <!-- Editable Info Section -->
+      <form @submit.prevent="updateProfile">
+        <div class="mb-3">
+          <label class="form-label">Full Name</label>
+          <input v-model="user.name" type="text" class="form-control" />
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label">Email</label>
+          <input v-model="user.email" type="email" class="form-control" />
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label">Phone Number</label>
+          <input v-model="user.phone" type="text" class="form-control" />
+        </div>
+
+        <button
+          type="submit"
+          class="btn w-100 mt-3"
+          style="background-color: #9D8189; color: white;"
+        >
+          Save Changes
+        </button>
+      </form>
+    </div>
+
+    <!-- Optional Bookings Section -->
+    <div class="mt-5 text-center">
+      <h4>Your Booked Classes</h4>
+      <p v-if="bookedClasses.length === 0" class="text-muted">No classes booked yet.</p>
+
+      <div v-else class="row gy-3 mt-3 justify-content-center">
+        <div v-for="item in bookedClasses" :key="item.id" class="col-md-4">
+          <div class="card h-100 shadow-sm">
+            <div class="card-body">
+              <h5 class="card-title">{{ item.Subject }}</h5>
+              <p class="card-text small text-muted">{{ item.Location }}</p>
+              <p class="card-text">Price: £{{ item.Price }}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </template>
+
+<script setup>
+import { ref, inject } from "vue";
+
+const store = inject('store');
+
+const user = ref({
+  name: store.user.name,
+  email: store.user.email,
+  phone: store.user.phone,
+});
+
+// Example booked classes from cart or placeholder
+const bookedClasses = ref(store.cart || []);
+
+function updateProfile() {
+  alert("Profile updated");
+}
+</script>
