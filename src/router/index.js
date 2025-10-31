@@ -17,12 +17,14 @@ const routes = [
     { path: '/profile', name: "Profile", component: Profile },
     { path: '/cart', name: "Cart", component: Cart },
     { path: '/register', name: "Register", component: Register},
-    { path: '/login', name: "Login", component: Login}
+    { path: '/login', name: "Login", component: Login},
+    // make sure that github pages always has a page to go to and doesn't break
+    {path: '/:pathMatch(.*)*', name: 'NotFound', component: Home}
 ]
 
 // create router object
 const router = createRouter({
-    history: createWebHistory(import.meta.env.BASE_URL),
+    history: createWebHistory('/FullStackCourseWork-Frontend/'),
     routes
 })
 

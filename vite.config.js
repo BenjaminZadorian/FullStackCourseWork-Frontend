@@ -11,6 +11,9 @@ export default defineConfig({
     vueDevTools(),
   ],
   base: '/FullStackCourseWork-Frontend/',
+  build: {
+    outDir: 'docs'
+  },
   resolve: {
     alias: {
       '@': fileURLToPath(new URL('./src', import.meta.url))

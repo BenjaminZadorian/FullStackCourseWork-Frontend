@@ -21,7 +21,7 @@
           </li>
           <!-- Add a logout button if the user is logged in -->
           <li v-if="store.user.isLoggedIn" class="nav-item" @click="logout">
-            <router-link class="nav-link px-3 text-dark">Logout</router-link>
+              <button class="nav-link px-3 text-dark border-0 bg-transparent" @click="logout">Logout</button>
           </li>
 
           <router-link class="nav-link px-3 text-dark" style="font-weight: bold;">{{ store.user.name }}</router-link>
@@ -33,7 +33,7 @@
         <!-- must check the current view route, if in cart to=/classes, if classes to=/cart -->
         <li class="nav-item">
           <router-link v-if="store.cartCount > 0" class="nav-link text-dark"
-            :to="route.name === 'Classes' ? '/cart' : '/classes'">
+            :to="route?.name === 'Classes' ? '/cart' : '/classes'">
             <i class="bi bi-cart3 fs-4">{{ cartCount }}</i>
           </router-link>
           <router-link v-else class="nav-link text-dark" style="opacity: 0.5; cursor: not-allowed;">
