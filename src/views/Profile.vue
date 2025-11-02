@@ -1,6 +1,5 @@
 <template>
   <div class="container py-5">
-    <!-- Page Header -->
     <section class="text-center mb-5">
       <h1 class="fw-bold">Your Profile</h1>
       <p class="text-muted">View and update your personal information</p>
@@ -45,7 +44,6 @@
       </form>
     </div>
 
-    <!-- Optional Bookings Section -->
     <div class="mt-5 text-center">
       <h4>Your Booked Classes</h4>
       <p v-if="bookedClasses.length === 0" class="text-muted">No classes booked yet.</p>
@@ -76,8 +74,7 @@ const user = ref({
   phone: store.user.phone,
 });
 
-// Example booked classes from cart or placeholder
-const bookedClasses = ref(store.cart || []);
+const bookedClasses = ref(store.cart);
 
 function updateProfile() {
   alert("Profile updated");
