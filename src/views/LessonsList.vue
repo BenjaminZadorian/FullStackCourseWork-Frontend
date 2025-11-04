@@ -43,13 +43,13 @@
         <div id="class-card" class="card h-100 shadow-sm">
           <div id="card-main-body"  class="card-body">
             <i :class="classObject.icon"></i>
-            <h5 class="card-title">{{ classObject.Subject }}</h5>
-            <p class="card-text text-muted small">{{ classObject.Location }}</p>
+            <h5 class="card-title">{{ classObject.topic }}</h5>
+            <p class="card-text text-muted small">{{ classObject.location }}</p>
           </div>
           <!-- Pricing and Spaces available -->
           <ul class="list-group list-group-flush">
-            <li class="list-group-item">£{{ classObject.Price }}.00</li>
-            <li class="list-group-item">Spaces Available : {{ classObject.Spaces }}</li>
+            <li class="list-group-item">£{{ classObject.price }}.00</li>
+            <li class="list-group-item">Spaces Available : {{ classObject.spaces }}</li>
           </ul>
 
           <!-- Use conditionals to create a dynamic button -->
@@ -62,7 +62,7 @@
             >
 
             <!-- Use v-if to change the text within the button depending on if its in the cart or is full yet -->
-            <span v-if="classObject.Spaces === 0 && !store.existsInCart(classObject.id)" style="opacity: 0.5; cursor: not-allowed;">Full</span>
+            <span v-if="classObject.spaces === 0 && !store.existsInCart(classObject.id)" style="opacity: 0.5; cursor: not-allowed;">Full</span>
             <span v-else-if="store.existsInCart(classObject.id)" style="">Remove from Cart</span>
             <span v-else>Add to Cart</span>
 
@@ -94,6 +94,15 @@
 <script setup>
 import { ref, computed, onMounted, inject } from 'vue'
 
+// This will hold classes fetched from the backend when I implement MongoDB
+const lessons = ref([]);
+const loading = ref(true);
+
+onMounted(async () => {
+  lessons.value = await getLessons();
+  loading.value = false;
+});
+
 // inject store into the class list to be able to update the users cart
 const store = inject("store");
 
@@ -103,23 +112,6 @@ const selectedCategory = ref('')
 
 // Can be either ascending or descending
 const sortOrder = ref('ascending')
-
-// Temp test data for classes before backend is implemented
-  const classesTemp = ref([
-    { id: 1, Subject: 'Music', Location: 'London', Price: 10.00, Spaces: 5, icon: 'fa-solid fa-music' },
-    { id: 2, Subject: 'Art', Location: 'Manchester', Price: 12.00, Spaces: 8, icon: 'fa-solid fa-paintbrush'},
-    { id: 3, Subject: 'Cooking', Location: 'Birmingham', Price: 15.00, Spaces: 1, icon: 'fa-solid fa-utensils' },
-    { id: 4, Subject: 'Religious', Location: 'Leeds', Price: 8.00, Spaces: 7, icon: 'fa-solid fa-cross' },
-    { id: 5, Subject: 'Photography', Location: 'Liverpool', Price: 20.00, Spaces: 5, icon: 'fa-solid fa-camera' },
-    { id: 6, Subject: 'Gym', Location: 'Newcastle', Price: 18.00, Spaces: 6, icon: 'fa-solid fa-dumbbell'},
-    { id: 7, Subject: 'Programming', Location: 'Sheffield', Price: 25.00, Spaces: 9, icon: 'fa-solid fa-code'},
-    { id: 8, Subject: 'Writing', Location: 'Bristol', Price: 14.00, Spaces: 10, icon: 'fa-solid fa-pen-nib'},
-    { id: 9, Subject: 'Design & Technology', Location: 'Nottingham', Price: 11.00, Spaces: 5, icon: 'fa-solid fa-object-ungroup'},
-    { id: 10, Subject: 'History', Location: 'Cardiff', Price: 9.00, Spaces: 7, icon: 'fa-solid fa-landmark' }
-  ])
-
-// This will hold classes fetched from the backend when I implement MongoDB
-const classes = ref([])
 
 const displayedClasses = computed(() => {
   // Copy array

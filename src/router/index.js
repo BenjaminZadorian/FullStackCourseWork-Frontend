@@ -3,7 +3,7 @@ import { createRouter, createWebHistory } from 'vue-router' // importing vue-rou
 // // import pages for routing
 import Home from '../views/Home.vue'
 import About from '../views/About.vue'
-import ClassesList from '../views/ClassesList.vue'
+import LessonsList from '../views/LessonsList.vue'
 import Profile from '../views/Profile.vue'
 import Cart from '../views/Cart.vue'
 import Register from '../views/Register.vue'
@@ -13,7 +13,7 @@ import Login from '../views/Login.vue'
 const routes = [
     { path: '/', name: "Home", component: Home },
     { path: '/about', name: "About", component: About },
-    { path: '/classes', name: "Classes", component: ClassesList },
+    { path: '/lessons', name: "Lessons", component: LessonsList },
     { path: '/profile', name: "Profile", component: Profile },
     { path: '/cart', name: "Cart", component: Cart },
     { path: '/register', name: "Register", component: Register},
