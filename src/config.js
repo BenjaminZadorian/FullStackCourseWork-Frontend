@@ -1,0 +1,1 @@
+export const BACKEND_URL = "https://benjaminzadorian.github.io/FullStackCourseWork-Frontend/";
