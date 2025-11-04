@@ -1,4 +1,4 @@
-export const BACKEND_URL = "https://benjaminzadorian.github.io/FullStackCourseWork-Frontend/";
+export const BACKEND_URL = "https://fullstackcoursework-backend.onrender.com";
 
 // api fetch to get all lessons
 export async function getLessons() {

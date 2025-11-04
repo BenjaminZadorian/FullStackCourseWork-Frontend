@@ -24,7 +24,7 @@ export const store = reactive({
         this.user.name = '';
     },
 
-    // Check if an item exists then add it to the cart if ti doesn't
+    // Check if an item exists then add it to the cart if it doesn't
     addToCart(item) {
         const itemExists = this.cart.find((x) => x.id === item.id);
         if (!itemExists) {

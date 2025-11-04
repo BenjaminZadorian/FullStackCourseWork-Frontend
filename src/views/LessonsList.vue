@@ -48,7 +48,7 @@
           </div>
           <!-- Pricing and Spaces available -->
           <ul class="list-group list-group-flush">
-            <li class="list-group-item">£{{ classObject.price }}.00</li>
+            <li class="list-group-item">£{{ classObject.price }}</li>
             <li class="list-group-item">Spaces Available : {{ classObject.spaces }}</li>
           </ul>
 
@@ -93,6 +93,7 @@
 
 <script setup>
 import { ref, computed, onMounted, inject } from 'vue'
+import { getLessons } from '@/backendApi.js';
 
 // This will hold lessons fetched from the backend when I implement MongoDB
 const lessons = ref([]);
