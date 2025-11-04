@@ -4,10 +4,10 @@
       <div class="hero-content p-5">
         <h1 class="display-4 fw-bold">Classly After School Activites</h1>
         <p class="lead mt-3">
-          Find and book fun classes for students of all ages — from coding and art to sports and music.
+          Find and book fun lessons for students of all ages — from coding and art to sports and music.
         </p>
-        <!-- Button linking to all classes -->
-        <router-link to="/classes" class="btn btn-lg mt-4 px-5" style="background-color: #FFCAD4;">Browse Classes</router-link>
+        <!-- Button linking to all lessons -->
+        <router-link to="/lessons" class="btn btn-lg mt-4 px-5" style="background-color: #FFCAD4;">Browse lessons</router-link>
       </div>
     </section>
 
@@ -21,7 +21,7 @@
               <i class="bi bi-book fs-1 text-primary mb-3"></i>
               <h5 clas="card-title">Engage in Interactive Learning</h5>
               <span>
-                Book classes that focus on creating a deep focus environment.
+                Book lessons that focus on creating a deep focus environment.
               </span>
             </div>
           </div>

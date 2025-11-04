@@ -24,7 +24,7 @@ const routes = [
 
 // create router object
 const router = createRouter({
-    history: createWebHistory('/FullStackCourseWork-Frontend/'),
+    history: createWebHistory(import.meta.env.BASE_URL),
     routes
 })
 

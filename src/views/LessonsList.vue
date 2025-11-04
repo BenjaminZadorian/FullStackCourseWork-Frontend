@@ -1,8 +1,8 @@
 <template>
   <div class="container py-5">
     <section class="text-center mb-5">
-      <h1 class="text-center mb-4">Available Classes</h1>
-      <p class="lead text-muted">Browse through our selection of available classes and book your spot today!</p>
+      <h1 class="text-center mb-4">Available lessons</h1>
+      <p class="lead text-muted">Browse through our selection of available lessons and book your spot today!</p>
     </section>
 
     <!-- Search / Filter -->
@@ -35,10 +35,10 @@
       </div>
     </section>
 
-    <!-- Classes List -->
+    <!-- lessons List -->
      <section class="row gy-4">
-      <!-- For loop creating all class cards for the classes that are available -->
-      <div class="col-md-4" v-for="classObject in displayedClasses" :key="classObject.id">
+      <!-- For loop creating all class cards for the lessons that are available -->
+      <div class="col-md-4" v-for="classObject in displayedlessons" :key="classObject.id">
         <!-- Main card part -->
         <div id="class-card" class="card h-100 shadow-sm">
           <div id="card-main-body"  class="card-body">
@@ -94,7 +94,7 @@
 <script setup>
 import { ref, computed, onMounted, inject } from 'vue'
 
-// This will hold classes fetched from the backend when I implement MongoDB
+// This will hold lessons fetched from the backend when I implement MongoDB
 const lessons = ref([]);
 const loading = ref(true);
 
@@ -113,11 +113,11 @@ const selectedCategory = ref('')
 // Can be either ascending or descending
 const sortOrder = ref('ascending')
 
-const displayedClasses = computed(() => {
+const displayedlessons = computed(() => {
   // Copy array
-  let result = [...classesTemp.value]
+  let result = [...lessonsTemp.value]
 
-  // If a searchTerm exists, then filter the displayedClasses based on it
+  // If a searchTerm exists, then filter the displayedlessons based on it
   if (searchTerm.value) {
     result = result.filter(a =>
       a.Subject.toLowerCase().includes(searchTerm.value.toLowerCase())

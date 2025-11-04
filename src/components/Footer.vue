@@ -25,7 +25,7 @@
                     <div class="row d-flex justify-content-center">
                         <div class="col-lg-8">
                             <p id="footer-text">
-                                Classly is your trusted platform for discovering and booking after-school classes and activities. We help students explore new skills, from arts and coding to sports and creativity 
+                                Classly is your trusted platform for discovering and booking after-school lessons and activities. We help students explore new skills, from arts and coding to sports and creativity 
                                 <br> 
                                 all in one simple, easy-to-use place.
                             </p>
@@ -51,7 +51,7 @@ const links = [
     { text: 'Home', path: '/' },
     { text: 'Register', path: '/register' },
     { text: 'Login', path: '/login' },
-    { text: 'Classes', path: '/classes' },
+    { text: 'lessons', path: '/lessons' },
     { text: 'About Us', path: '/about' }
 ]
 </script>
