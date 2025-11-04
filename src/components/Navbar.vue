@@ -24,7 +24,7 @@
               <button class="nav-link px-3 text-dark border-0 bg-transparent" @click="logout">Logout</button>
           </li>
 
-          <router-link class="nav-link px-3 text-dark" style="font-weight: bold;">{{ store.user.name }}</router-link>
+          <!-- <router-link class="nav-link px-3 text-dark" style="font-weight: bold;">{{ store.user.name }}</router-link> -->
 
         </ul>
 
@@ -33,10 +33,10 @@
         <!-- must check the current view route, if in cart to=/lessons, if lessons to=/cart -->
         <li class="nav-item">
           <router-link v-if="store.cartCount > 0" class="nav-link text-dark"
-            :to="route?.name === 'lessons' ? '/cart' : '/lessons'">
+            :to="route?.name === 'Lessons' ? '/cart' : '/lessons'">
             <i class="bi bi-cart3 fs-4">{{ cartCount }}</i>
           </router-link>
-          <router-link v-else class="nav-link text-dark" style="opacity: 0.5; cursor: not-allowed;">
+          <router-link v-else class="nav-link text-dark" style="opacity: 0.5; cursor: not-allowed;" to="">
             <i class="bi bi-cart3 fs-4">{{ cartCount }}</i>
           </router-link>
         </li>
@@ -79,7 +79,7 @@ const filteredLinks = computed(() => {
 // Nav links as reactive data
 const links = [
   { text: 'Home', path: '/' },
-  { text: 'lessons', path: '/lessons' },
+  { text: 'Lessons', path: '/lessons' },
   { text: 'Register', path: '/register' },
   { text: 'Login', path: '/login' },
   { text: 'Profile', path: '/profile' },

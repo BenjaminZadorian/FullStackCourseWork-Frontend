@@ -115,7 +115,7 @@ const sortOrder = ref('ascending')
 
 const displayedlessons = computed(() => {
   // Copy array
-  let result = [...lessonsTemp.value]
+  let result = [...lessons.value]
 
   // If a searchTerm exists, then filter the displayedlessons based on it
   if (searchTerm.value) {
