@@ -95,7 +95,7 @@
 import { ref, computed, onMounted, inject } from 'vue'
 import { getLessons } from '@/backendApi.js';
 
-// This will hold lessons fetched from the backend when I implement MongoDB
+// This will hold lessons fetched from the backend from implement MongoDB
 const lessons = ref([]);
 const loading = ref(true);
 
@@ -146,8 +146,6 @@ const displayedlessons = computed(() => {
         a.Spaces - b.Spaces)
     }
   }
-
-  console.log(sortOrder.value);
 
   if (sortOrder.value == 'descending') {
     result.reverse()
