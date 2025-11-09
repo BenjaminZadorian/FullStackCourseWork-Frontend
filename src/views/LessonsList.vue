@@ -93,7 +93,7 @@
 
 <script setup>
 import { ref, computed, onMounted, inject } from 'vue'
-import { getLessons } from '@/backendApi.js';
+import { getLessons } from '../backendApi.js';
 
 // This will hold lessons fetched from the backend from implement MongoDB
 const lessons = ref([]);

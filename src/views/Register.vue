@@ -7,7 +7,7 @@
       <div class="alert small mx-auto" style="max-width: 400px; background-color: #D8E2DC; color: black;">
         <p style="font-weight: bold;">Requirements</p>
         <ul>
-            <li>Name must contain only letters & spaces</li>
+            <li>username must contain only letters & spaces</li>
             <li>Email must be a valid email address</li>
             <li>Password must be between 8 - 13 characters</li>
         </ul>
@@ -20,7 +20,7 @@
     <!-- Username input -->
       <div class="mb-3">
         <label class="form-label">Desired Username</label>
-        <input v-model="name" type="text" class="form-control" :class="{ 'is-invalid' :  nameError}" required />
+        <input v-model="username" type="text" class="form-control" :class="{ 'is-invalid' :  nameError}" required />
         <div v-if="nameError" class="text-danger small mt-1">{{ nameError }}</div>
       </div>
 
@@ -67,12 +67,13 @@
 <script setup>
 import { ref, inject } from 'vue'
 import { useRouter } from 'vue-router'
+import { registerUser } from '../backendApi'
 
 const router = useRouter()
 const store = inject('store')
 
 // Variables for what the user inputs
-const name = ref('')
+const username = ref('')
 const email = ref('')
 const password = ref('')
 const phone = ref('');
@@ -90,15 +91,15 @@ const nameRegex = /^[A-Za-z\s]+$/
 const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
 const phoneRegex = /^[0-9]{10,15}$/
 
-function handleRegister() {
+async function handleRegister() {
 
     nameError.value = ''
     emailError.value = ''
     passwordError.value = ''
     phoneError.value = ''
 
-    if (!name.value.match(nameRegex)) {
-        nameError.value = 'Name must contain letters only.'
+    if (!username.value.match(nameRegex)) {
+        nameError.value = 'username must contain letters only.'
     }
 
     if (!emailRegex.test(email.value)) {
@@ -118,8 +119,10 @@ function handleRegister() {
     }
 
     // If no error has a value, register + login user in
+    // store.login(username.value, password.value, email.value, phone.value)
 
-    store.login(name.value, password.value, email.value, phone.value)
+    await registerUser(username.value, email.value, phone.value, password.value);
+
     router.push('/')
 }
 </script>

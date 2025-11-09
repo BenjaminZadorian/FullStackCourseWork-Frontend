@@ -7,7 +7,7 @@
           Find and book fun lessons for students of all ages — from coding and art to sports and music.
         </p>
         <!-- Button linking to all lessons -->
-        <router-link to="/lessons" class="btn btn-lg mt-4 px-5" style="background-color: #FFCAD4;">Browse lessons</router-link>
+        <router-link to="/lessons" class="btn btn-lg mt-4 px-5" id="lesson-btn" style="background-color: #FFCAD4;">Browse lessons</router-link>
       </div>
     </section>
 
@@ -55,5 +55,6 @@
 
   </div>
 </template>
+
 <script setup>
 </script>

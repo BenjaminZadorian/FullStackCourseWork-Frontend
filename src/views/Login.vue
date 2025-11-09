@@ -5,12 +5,14 @@
       <p class="text-muted">Access your account to continue</p>
     </section>
 
+    <!-- username input -->
     <form @submit.prevent="handleLogin" class="mx-auto" style="max-width: 400px;">
       <div class="mb-3">
         <label class="form-label">Username</label>
         <input v-model="username" type="text" class="form-control" required />
       </div>
 
+      <!-- password input -->
       <div class="mb-3">
         <label class="form-label">Password</label>
         <input v-model="password" type="password" class="form-control" required />
