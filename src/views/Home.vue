@@ -6,8 +6,16 @@
         <p class="lead mt-3">
           Find and book fun lessons for students of all ages — from coding and art to sports and music.
         </p>
+
+        <!-- button linking to registration -->
+         <div>
+            <router-link to="/register" class="btn btn-lg mt-4 px-5 btn-hover" style="background-color: #FFCAD4;">Register Now!</router-link>
+         </div>
+
         <!-- Button linking to all lessons -->
-        <router-link to="/lessons" class="btn btn-lg mt-4 px-5" id="lesson-btn" style="background-color: #FFCAD4;">Browse lessons</router-link>
+         <div>
+            <router-link to="/lessons" class="btn btn-lg mt-4 px-5 btn-hover" style="background-color: #FFCAD4;">Browse lessons</router-link>
+         </div>
       </div>
     </section>
 
@@ -55,6 +63,5 @@
 
   </div>
 </template>
-
 <script setup>
 </script>

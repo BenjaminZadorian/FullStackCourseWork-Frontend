@@ -5,6 +5,16 @@ body {
     font-family: 'Poppins', sans-serif;
 }
 
+.btn-hover {
+    transition: transform 0.1s ease-in-out;
+}
+
+
+.btn-hover:hover {
+    background-color: #ffa6c9; /* slightly lighter/pink */
+    transform: scale(1.05); /* slightly bigger */
+}
+
 /* 
 Pallete
 D8E2DC
