@@ -3,9 +3,10 @@ import { reactive } from "vue";
 // export the reactive object of the cart object and cart functions so that they are global
 export const store = reactive({
     cart: [],
+    // user object that holds relevant data
     user: {
         isLoggedIn: false,
-        name: '',
+        username: '',
         email: '',
         password: '',
         phone : ''
@@ -13,7 +14,7 @@ export const store = reactive({
 
     login(name, password, email, phone) {
         this.user.isLoggedIn = true;
-        this.user.name = name;
+        this.user.username = name;
         this.user.password = password;
         this.user.email = email;
         this.user.phone = phone;
@@ -21,7 +22,7 @@ export const store = reactive({
 
     logout() {
         this.user.isLoggedIn = false;
-        this.user.name = '';
+        this.user.username = '';
     },
 
     // Check if an item exists then add it to the cart if it doesn't

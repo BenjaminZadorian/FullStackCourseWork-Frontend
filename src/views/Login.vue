@@ -31,17 +31,22 @@
 <script setup>
 import { ref, inject } from 'vue'
 import { useRouter } from 'vue-router'
+import { loginUser } from '../backendApi.js';
 
 const router = useRouter()
-const store = inject('store')
+const user = inject('user');
 
 const username = ref('')
 const password = ref('')
 
-function handleLogin() {
-  // (For now, fake login)
+async function handleLogin() {
+
   if (username.value && password.value) {
-    store.login(username.value)
+    
+    const loginCheck = await loginUser(username.value, password.value);
+
+    console.log(JSON.stringify(loginCheck));
+
     router.push('/')
   } else {
     alert('Please enter valid credentials.')

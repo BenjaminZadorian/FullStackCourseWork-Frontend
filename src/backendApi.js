@@ -44,3 +44,30 @@ export async function registerUser(username, email, phone, password) {
         alert("Error registering user");
     }
 }
+
+// POST: login user
+export async function loginUser(username, password) {
+    const userData = {
+        username,
+        password
+    };
+
+    try {
+        const res = await fetch(`${BACKEND_URL}/login`, {
+            method : "POST",
+            headers : { "Content-Type" : "application/json" },
+            body : JSON.stringify(userData)
+        });
+
+        const data = await res.json();
+
+        if (!res.ok) {
+            alert(data.message || "Login Failed");
+            return;
+        }
+        return data;
+    } catch (error) {
+        console.error("Error: ", error);
+        alert("Login Error");
+    }
+}

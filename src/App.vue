@@ -1,9 +1,12 @@
 <script setup>
 // inject the StoreData class into the App to be used throughout the project
 import { provide } from 'vue';
-import { store } from  './storeData'
+import { store } from  './storeData.js';
+import { user } from './userData';
 
+// from provide I can inject into other pages
 provide("store", store);
+provide("user", user);
 </script>
 
 <template>

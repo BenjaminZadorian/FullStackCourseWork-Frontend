@@ -67,10 +67,9 @@
 <script setup>
 import { ref, inject } from 'vue'
 import { useRouter } from 'vue-router'
-import { registerUser } from '../backendApi'
+import { registerUser } from '../backendApi.js'
 
 const router = useRouter()
-const store = inject('store')
 
 // Variables for what the user inputs
 const username = ref('')
@@ -118,11 +117,9 @@ async function handleRegister() {
       return
     }
 
-    // If no error has a value, register + login user in
-    // store.login(username.value, password.value, email.value, phone.value)
-
+    // If no error has a value, register + prompt to login
     await registerUser(username.value, email.value, phone.value, password.value);
 
-    router.push('/')
+    router.push('/login')
 }
 </script>
