@@ -104,8 +104,11 @@ onMounted(async () => {
   loading.value = false;
 });
 
-// inject store into the class list to be able to update the users cart
+// inject store into so that the shop can be manipulated
 const store = inject("store");
+
+// inject user to update the users cart
+const user = inject("user");
 
 // Variables for searching and filtering lessons
 const searchTerm = ref('')

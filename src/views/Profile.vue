@@ -13,25 +13,25 @@
           alt="Profile Avatar"
           class="rounded-circle mb-3"
         />
-        <h4>{{ user.name }}</h4>
-        <p class="text-muted">{{ user.email }}</p>
+        <h4>{{ userObject.name }}</h4>
+        <p class="text-muted">{{ userObject.email }}</p>
       </div>
 
       <!-- Editable Info Section -->
       <form @submit.prevent="updateProfile">
         <div class="mb-3">
           <label class="form-label">Full Name</label>
-          <input v-model="user.name" type="text" class="form-control" />
+          <input v-model="userObject.name" type="text" class="form-control" />
         </div>
 
         <div class="mb-3">
           <label class="form-label">Email</label>
-          <input v-model="user.email" type="email" class="form-control" />
+          <input v-model="userObject.email" type="email" class="form-control" />
         </div>
 
         <div class="mb-3">
           <label class="form-label">Phone Number</label>
-          <input v-model="user.phone" type="text" class="form-control" />
+          <input v-model="userObject.phone" type="text" class="form-control" />
         </div>
 
         <button
@@ -66,15 +66,15 @@
 <script setup>
 import { ref, inject } from "vue";
 
-const store = inject('store');
+const user = inject('user');
 
-const user = ref({
-  name: store.user.name,
-  email: store.user.email,
-  phone: store.user.phone,
+const userObject = ref({
+  name: user.user.username,
+  email: user.user.email,
+  phone: user.user.phone,
 });
 
-const bookedClasses = ref(store.cart);
+const bookedClasses = ref(user.cart);
 
 function updateProfile() {
   alert("Profile updated");

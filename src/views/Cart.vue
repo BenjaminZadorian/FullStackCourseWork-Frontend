@@ -9,7 +9,7 @@
       <!-- Displaying all booked classes -->
       <section class="row gy-4">
 
-        <div class="col-md-4" v-for="classObject in store.cart" :key="classObject.id">
+        <div class="col-md-4" v-for="classObject in user.cart" :key="classObject.id">
 
           <div id="class-card" class="card h-100 shadow-sm">
             <div id="card-main-body" class="card-body">
@@ -25,7 +25,7 @@
 
             <div class="card-footer text-center bg-white">
               <button id="remove-class-btn" class="btn w-100"
-                @click="store.removeFromCart(classObject.id); classObject.Spaces++"
+                @click="user.removeFromCart(classObject.id); classObject.Spaces++"
                 style="background-color: #e06689; color: black;">
                 <span>Remove from Cart</span>
               </button>
@@ -77,12 +77,12 @@
           </div>
 
           <div class="text-center">
-            <button type="submit" class="btn btn-success w-100" :disabled="!isFormValid || store.cartCount === 0">
+            <button type="submit" class="btn btn-success w-100" :disabled="!isFormValid || user.cartCount === 0">
               Confirm Checkout
             </button>
 
             <!-- msg to inform the user that the cart is empty -->
-            <span v-if="store.cartCount === 0" class="text-muted small">
+            <span v-if="user.cartCount === 0" class="text-muted small">
               Your Cart is Empty
             </span>
 
@@ -100,7 +100,7 @@ import {ref, computed, inject, onMounted, watch} from 'vue'
 const fullNameRegex = /^[A-Za-z\s]+$/; // Only allows letters and spaces
 const phoneNumberRegex = /^\d+$/; // Only alows digits
 
-const store = inject("store");
+const user = inject("user");
 
 // variables for the form
 const fullName = ref("");
@@ -112,18 +112,18 @@ const phoneError = ref("");
 
 // Auto fill in the phone and name if there is a logged in user
 onMounted(() => {
-  if (store.user.isLoggedIn) {
-    fullName.value = store.user.name || "";
-    phoneNumber.value = store.user.phone || "";
+  if (user.user.isLoggedIn) {
+    fullName.value = user.user.username || "";
+    phoneNumber.value = user.user.phone || "";
   }
 });
 
 // Check if anything changes with the logged in user so that the variables can be changed
 watch(
-  () => store.user,
+  () => user.user,
   (newUser) => {
     if (newUser.isLoggedIn) {
-      fullName.value = newUser.name || "";
+      fullName.value = newUser.username || "";
       phoneNumber.value = newUser.phone || "";
     } else {
       fullName.value = "";
@@ -169,7 +169,7 @@ function validateNumber() {
 }
 
 const isFormValid = computed(() => {
-  if (store.user.isLoggedIn) {
+  if (user.user.isLoggedIn) {
     validateName();
     validateNumber();
     return !fullNameError.value && !phoneError.value;
@@ -185,7 +185,7 @@ function handleCheckout() {
 
   // after checkout is valid, clear the cart and empty the input forms
   alert(`Thank you for your purchase ${fullName.value}, have a nice day!`)
-  store.cart = [];
+  user.cart = [];
   fullName.value = "";
   phoneNumber.value = "";
 }

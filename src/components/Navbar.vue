@@ -20,19 +20,16 @@
             <router-link class="nav-link px-3 text-dark" :to="link.path">{{ link.text }}</router-link>
           </li>
           <!-- Add a logout button if the user is logged in -->
-          <li v-if="store.user.isLoggedIn" class="nav-item" @click="logout">
+          <li v-if="user.user.isLoggedIn" class="nav-item" @click="logout">
               <button class="nav-link px-3 text-dark border-0 bg-transparent" @click="logout">Logout</button>
           </li>
-
-          <!-- <router-link class="nav-link px-3 text-dark" style="font-weight: bold;">{{ store.user.name }}</router-link> -->
-
         </ul>
 
         <!-- Shopping Cart Icon link -->
         <!-- V-If to check if there is an item in the cart -->
         <!-- must check the current view route, if in cart to=/lessons, if lessons to=/cart -->
         <li class="nav-item">
-          <router-link v-if="store.cartCount > 0" class="nav-link text-dark"
+          <router-link v-if="user.cartCount > 0" class="nav-link text-dark"
             :to="route?.name === 'Lessons' ? '/cart' : '/lessons'">
             <i class="bi bi-cart3 fs-4">{{ cartCount }}</i>
           </router-link>
@@ -51,11 +48,11 @@ import { useRoute } from 'vue-router';
 
 const route = useRoute();
 
-// inject store into navbar so that I can display the counter for how many items are in the cart
-const store = inject("store");
+// inject user into navbar so that I can display the counter for how many items are in the cart
+const user = inject("user");
 
 // get cart count
-const cartCount = computed(() => store.cartCount);
+const cartCount = computed(() => user.cartCount);
 
 // Toggle state for collapse menu
 const isOpen = ref(false)
@@ -64,16 +61,16 @@ function toggleMenu() {
 }
 
 function logout() {
-  store.logout();
+  user.logout();
 }
 
 // Function to remove login and register links when the user is lgoged in on the page
 const filteredLinks = computed(() => {
-  if (store.user.isLoggedIn) {
+  if (user.user.isLoggedIn) {
     return links.filter(link => link.text !== 'Login' && link.text !== 'Register')
   }
 
-  return links.filter(link => link.text !== 'Profile')
+  return links.filter(link => link.text !== user.user.username)
 })
 
 // Nav links as reactive data
@@ -82,7 +79,7 @@ const links = [
   { text: 'Lessons', path: '/lessons' },
   { text: 'Register', path: '/register' },
   { text: 'Login', path: '/login' },
-  { text: 'Profile', path: '/profile' },
+  { text: user.user.username, path: '/profile' },
   { text: 'About Us', path: '/about' }
 ]
 

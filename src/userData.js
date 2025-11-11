@@ -5,8 +5,8 @@ export const user = reactive({
     cart: [],
     // user object that holds relevant data
     user: {
-        isLoggedIn: false,
-        username: '',
+        isLoggedIn: true,
+        username: 'Test',
         email: '',
         password: '',
         phone : ''

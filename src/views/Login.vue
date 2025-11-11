@@ -47,6 +47,7 @@ async function handleLogin() {
 
     console.log(JSON.stringify(loginCheck));
 
+    user.login(loginCheck.username, loginCheck.password, loginCheck.email, loginCheck.phone); 
     router.push('/')
   } else {
     alert('Please enter valid credentials.')
