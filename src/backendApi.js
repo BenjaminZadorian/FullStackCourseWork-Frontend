@@ -71,3 +71,7 @@ export async function loginUser(username, password) {
         alert("Login Error");
     }
 }
+
+// POST: save a new order
+
+// PUT: update an available lesson spaces left after order is submitted

@@ -58,12 +58,12 @@
             id="book-now-btn" 
             class="btn w-100" 
             @click="toggleAddToCartBtn(classObject)"
-            :style="store.existsInCart(classObject.id) ? 'background-color: #e06689; color: black;' : 'background-color: #9D8189; color: white;'"
+            :style="user.existsInCart(classObject.id) ? 'background-color: #e06689; color: black;' : 'background-color: #9D8189; color: white;'"
             >
 
             <!-- Use v-if to change the text within the button depending on if its in the cart or is full yet -->
-            <span v-if="classObject.spaces === 0 && !store.existsInCart(classObject.id)" style="opacity: 0.5; cursor: not-allowed;">Full</span>
-            <span v-else-if="store.existsInCart(classObject.id)" style="">Remove from Cart</span>
+            <span v-if="classObject.spaces === 0 && !user.existsInCart(classObject.id)" style="opacity: 0.5; cursor: not-allowed;">Full</span>
+            <span v-else-if="user.existsInCart(classObject.id)" style="">Remove from Cart</span>
             <span v-else>Add to Cart</span>
 
           </button>
@@ -93,22 +93,20 @@
 
 <script setup>
 import { ref, computed, onMounted, inject } from 'vue'
-import { getLessons } from '../backendApi.js';
+
+// inject store into so that the shop can be manipulated
+const store = inject("store");
+// inject user to update the users cart
+const user = inject("user");
 
 // This will hold lessons fetched from the backend from implement MongoDB
 const lessons = ref([]);
 const loading = ref(true);
 
 onMounted(async () => {
-  lessons.value = await getLessons();
+  lessons.value = store.stock;
   loading.value = false;
 });
-
-// inject store into so that the shop can be manipulated
-const store = inject("store");
-
-// inject user to update the users cart
-const user = inject("user");
 
 // Variables for searching and filtering lessons
 const searchTerm = ref('')
@@ -158,13 +156,18 @@ const displayedlessons = computed(() => {
 })
 
 function toggleAddToCartBtn(classItem) {
-  if (store.existsInCart(classItem.id)) {
-    store.removeFromCart(classItem.id)
-    classItem.Spaces++;
-  } else if (classItem.Spaces > 0){
-    store.addToCart(classItem);
-    classItem.Spaces--;
+  console.log(classItem);
+  if (user.existsInCart(classItem.id)) {
+    user.removeFromCart(classItem.id)
+    classItem.spaces++;
+  } else if (classItem.spaces > 0){
+    user.addToCart(classItem);
+    classItem.spaces--;
   }
+
+  console.log("CART")
+  console.log(user.cart);
+
 }
 
 </script>

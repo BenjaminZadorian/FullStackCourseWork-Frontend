@@ -52,9 +52,10 @@
         <div v-for="item in bookedClasses" :key="item.id" class="col-md-4">
           <div class="card h-100 shadow-sm">
             <div class="card-body">
-              <h5 class="card-title">{{ item.Subject }}</h5>
-              <p class="card-text small text-muted">{{ item.Location }}</p>
-              <p class="card-text">Price: £{{ item.Price }}</p>
+              <i :class="item.icon"></i>
+              <h5 class="card-title">{{ item.topic }}</h5>
+              <p class="card-text small text-muted">{{ item.location }}</p>
+              <p class="card-text">Price: £{{ item.price }}</p>
             </div>
           </div>
         </div>
@@ -74,6 +75,7 @@ const userObject = ref({
   phone: user.user.phone,
 });
 
+// This must be changed from the user cart -> the user order history, this will be a GET from the 'orders' collection stored in the userData.js
 const bookedClasses = ref(user.cart);
 
 function updateProfile() {
