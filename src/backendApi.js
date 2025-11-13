@@ -15,6 +15,9 @@ export async function getLessons() {
     }
 }
 
+// PUT: update an available lesson spaces left after order is submitted
+
+
 // POST: register user
 export async function registerUser(username, email, phone, password) {
 
@@ -62,7 +65,7 @@ export async function loginUser(username, password) {
         const data = await res.json();
 
         if (!res.ok) {
-            alert(data.message || "Login Failed");
+            alert(data.message);
             return;
         }
         return data;
@@ -73,5 +76,34 @@ export async function loginUser(username, password) {
 }
 
 // POST: save a new order
+export async function saveOrder(userName, userPhone, lessonIds, lessonSpaces) {
+    const orderData = {
+        userName,
+        userPhone,
+        lessonIds,
+        lessonSpaces
+    };
 
-// PUT: update an available lesson spaces left after order is submitted
+    try {
+
+        const res = await fetch(`${BACKEND_URL}/orders`, {
+            method : "POST",
+            headers : { "Content-Type" : "application/json" },
+            body : JSON.stringify(orderData)
+        });
+
+        const data = await res.json();
+
+        if (!res.ok) {
+            alert(data.message)
+            return;
+        }
+
+        return data;
+
+    } catch (error) {
+        console.error("Error: ", error);
+        alert("Order error");
+    }
+
+}

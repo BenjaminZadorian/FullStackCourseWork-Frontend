@@ -156,7 +156,6 @@ const displayedlessons = computed(() => {
 })
 
 function toggleAddToCartBtn(classItem) {
-  console.log(classItem);
   if (user.existsInCart(classItem.id)) {
     user.removeFromCart(classItem.id)
     classItem.spaces++;
@@ -164,10 +163,6 @@ function toggleAddToCartBtn(classItem) {
     user.addToCart(classItem);
     classItem.spaces--;
   }
-
-  console.log("CART")
-  console.log(user.cart);
-
 }
 
 </script>

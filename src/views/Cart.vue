@@ -95,12 +95,13 @@
 
 <script setup>
 import {ref, computed, inject, onMounted, watch} from 'vue'
+import { saveOrder } from '../backendApi';
+
+const user = inject("user");
 
 // Variables for the regex to check the input information
 const fullNameRegex = /^[A-Za-z\s]+$/; // Only allows letters and spaces
 const phoneNumberRegex = /^\d+$/; // Only alows digits
-
-const user = inject("user");
 
 // variables for the form
 const fullName = ref("");
@@ -133,7 +134,7 @@ watch(
   { deep: true }
 );
 
-// Validate the full name and make sure that it is 2 words
+// Validate the full name
 function validateName() {
   if (!fullName.value.trim()) {
     fullNameError.value = "Full name is required";
@@ -141,10 +142,6 @@ function validateName() {
   // check against the regex
   else if (!fullNameRegex.test(fullName.value.trim())) {
     fullNameError.value = "Name can contain letters and spaces only";
-  }
-  // Check that 2 names have been given in the input slot
-  else if (fullName.value.trim().split(" ").length < 2) {
-    fullNameError.value = "Please enter both your first and last name"
   }
   else {
     fullNameError.value = "";
@@ -176,15 +173,22 @@ const isFormValid = computed(() => {
   }
 });
 
-function handleCheckout() {
+async function handleCheckout() {
   validateName();
   validateNumber();
   if (isFormValid.value == false) {
     return;
   }
 
+  const lessonIds = user.cart.map((lesson) => lesson._id);
+  const lessonSpaces = user.cart.map((lesson) => lesson.spaces);  
+
+  saveOrder(fullName.value, phoneNumber.value, lessonIds, lessonSpaces);
+
   // after checkout is valid, clear the cart and empty the input forms
+
   alert(`Thank you for your purchase ${fullName.value}, have a nice day!`)
+
   user.cart = [];
   fullName.value = "";
   phoneNumber.value = "";

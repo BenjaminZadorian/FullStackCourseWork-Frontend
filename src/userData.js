@@ -3,6 +3,7 @@ import { reactive } from "vue";
 // export the reactive object of the cart object and cart functions so that they are global
 export const user = reactive({
     cart: [],
+    orders: [],
     // user object that holds relevant data
     user: {
         isLoggedIn: true,
@@ -32,6 +33,8 @@ export const user = reactive({
             this.cart.push(item);
         }
     },
+    
+    // ---- Cart Functions ----
 
     // remove an item from the cart based off its id
     removeFromCart(id) {
@@ -48,7 +51,7 @@ export const user = reactive({
         return this.cart.length;
     },
 
-    get allItems() {
+    get allCartItems() {
         return this.cart;
     },
 
@@ -56,5 +59,7 @@ export const user = reactive({
     clearCart(){
         this.cart = [];
     }
+
+    // ---- Order Functions ----
 
 });
