@@ -37,7 +37,7 @@
 
     <!-- lessons List -->
      <section class="row gy-4">
-      <!-- For loop creating all class cards for the lessons that are available -->
+      <!-- v-for loop creating all class cards for the lessons that are available -->
       <div class="col-md-4" v-for="classObject in displayedlessons" :key="classObject.id">
         <!-- Main card part -->
         <div id="class-card" class="card h-100 shadow-sm">

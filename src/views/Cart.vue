@@ -95,7 +95,7 @@
 
 <script setup>
 import {ref, computed, inject, onMounted, watch} from 'vue'
-import { saveOrder } from '../backendApi';
+import { saveOrder, updateLessonSpaces } from '../backendApi';
 
 const user = inject("user");
 
@@ -183,7 +183,13 @@ async function handleCheckout() {
   const lessonIds = user.cart.map((lesson) => lesson._id);
   const lessonSpaces = user.cart.map((lesson) => lesson.spaces);  
 
-  saveOrder(fullName.value, phoneNumber.value, lessonIds, lessonSpaces);
+  const orderSuccess = await saveOrder(fullName.value, phoneNumber.value, lessonIds, lessonSpaces)
+
+  if (orderSuccess) {
+    for (let i = 0; i < lessonIds.length; i++) {
+      updateLessonSpaces(lessonIds[i], lessonSpaces[i]);
+    }
+  }
 
   // after checkout is valid, clear the cart and empty the input forms
 

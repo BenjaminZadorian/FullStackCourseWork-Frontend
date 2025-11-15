@@ -16,7 +16,24 @@ export async function getLessons() {
 }
 
 // PUT: update an available lesson spaces left after order is submitted
+export async function updateLessonSpaces(lessonId, newSpaces) {
+    try {
+      const res = await fetch(`${BACKEND_URL}/lessons/${lessonId}`, {
+        method : "PUT",
+        headers : { "Content-Type" : "application/json" },
+        body : JSON.stringify({ newSpaces })
+      });
 
+      if (res.ok) {
+        alert("Lesson spaces successfully updated");
+      } else {
+        alert("Error updating lesson spaces");
+      }
+
+    } catch (error) {
+        console.error("Backend API call error: ", error);
+    }
+}
 
 // POST: register user
 export async function registerUser(username, email, phone, password) {
@@ -72,6 +89,7 @@ export async function loginUser(username, password) {
     } catch (error) {
         console.error("Error: ", error);
         alert("Login Error");
+        return;
     }
 }
 
@@ -96,14 +114,15 @@ export async function saveOrder(userName, userPhone, lessonIds, lessonSpaces) {
 
         if (!res.ok) {
             alert(data.message)
-            return;
+            return false;
         }
 
-        return data;
+        return true;
 
     } catch (error) {
         console.error("Error: ", error);
         alert("Order error");
+        return false;
     }
 
 }
