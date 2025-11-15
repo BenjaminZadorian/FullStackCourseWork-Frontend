@@ -15,10 +15,10 @@
     <section class="mb-4 text-center py-2">
       <select class="form-select" v-model="selectedCategory">
         <option value="">All Categories</option>
-        <option value="Subject">Subject</option>
-        <option value="Location">Location</option>
-        <option value="Price">Price</option>
-        <option value="Spaces">Spaces</option>
+        <option value="topic">Topic</option>
+        <option value="location">Location</option>
+        <option value="price">Price</option>
+        <option value="spaces">Spaces</option>
       </select>
 
       <div id="button-group" class="btn-group ms-2" role="group">
@@ -28,23 +28,29 @@
           <i class="fa-solid fa-angle-up"></i>
         </button>
         <!-- Descending Search Button -->
-        <button class="btn btn-outline-secondary" :class="{ active: sortOrder === 'descending' }" @click="sortOrder = 'descending'"
-          title="Descending">
+        <button class="btn btn-outline-secondary" :class="{ active: sortOrder === 'descending' }"
+          @click="sortOrder = 'descending'" title="Descending">
           <i class="fa-solid fa-angle-down"></i>
         </button>
       </div>
     </section>
 
     <!-- lessons List -->
-     <section class="row gy-4">
+    <section class="row gy-4">
       <!-- v-for loop creating all class cards for the lessons that are available -->
-      <div class="col-md-4" v-for="classObject in displayedlessons" :key="classObject.id">
+      <div class="col-md-4" v-for="classObject in displayedlessons" :key="classObject._id">
         <!-- Main card part -->
         <div id="class-card" class="card h-100 shadow-sm">
-          <div id="card-main-body"  class="card-body">
+          <div id="card-main-body" class="card-body">
             <i :class="classObject.icon"></i>
             <h5 class="card-title">{{ classObject.topic }}</h5>
             <p class="card-text text-muted small">{{ classObject.location }}</p>
+
+            <p class="card-text text-muted small">
+              <i class="fa-regular fa-calendar"></i>
+              {{ new Date(classObject.date).toLocaleDateString() }}
+            </p>
+
           </div>
           <!-- Pricing and Spaces available -->
           <ul class="list-group list-group-flush">
@@ -54,29 +60,27 @@
 
           <!-- Use conditionals to create a dynamic button -->
           <div class="card-footer text-center bg-white">
-            <button 
-            id="book-now-btn" 
-            class="btn w-100" 
-            @click="toggleAddToCartBtn(classObject)"
-            :style="user.existsInCart(classObject.id) ? 'background-color: #e06689; color: black;' : 'background-color: #9D8189; color: white;'"
-            >
+            <button id="book-now-btn" class="btn w-100" @click="toggleAddToCartBtn(classObject)"
+              :style="user.existsInCart(classObject._id) ? 'background-color: #e06689; color: black;' : 'background-color: #9D8189; color: white;'">
 
-            <!-- Use v-if to change the text within the button depending on if its in the cart or is full yet -->
-            <span v-if="classObject.spaces === 0 && !user.existsInCart(classObject.id)" style="opacity: 0.5; cursor: not-allowed;">Full</span>
-            <span v-else-if="user.existsInCart(classObject.id)" style="">Remove from Cart</span>
-            <span v-else>Add to Cart</span>
+              <!-- Use v-if to change the text within the button depending on if its in the cart or is full yet -->
+              <span v-if="classObject.spaces === 0 && !user.existsInCart(classObject._id)"
+                style="opacity: 0.5; cursor: not-allowed;">Full</span>
+              <span v-else-if="user.existsInCart(classObject._id)" style="">Remove from Cart</span>
+              <span v-else>Add to Cart</span>
 
-          </button>
+            </button>
           </div>
 
         </div>
       </div>
-     </section>
+    </section>
   </div>
 </template>
 
 <style>
-#class-card, .list-group-item {
+#class-card,
+.list-group-item {
   background-color: #f9f9f9;
 }
 
@@ -88,7 +92,6 @@
   background-color: #9D8189;
   color: white;
 }
-
 </style>
 
 <script setup>
@@ -100,13 +103,15 @@ const store = inject("store");
 const user = inject("user");
 
 // This will hold lessons fetched from the backend from implement MongoDB
-const lessons = ref([]);
+const lessons = computed(() => store.stock);
 const loading = ref(true);
 
 onMounted(async () => {
-  lessons.value = store.stock;
+  store.refreshStock();
   loading.value = false;
 });
+
+//
 
 // Variables for searching and filtering lessons
 const searchTerm = ref('')
@@ -122,29 +127,29 @@ const displayedlessons = computed(() => {
   // If a searchTerm exists, then filter the displayedlessons based on it
   if (searchTerm.value) {
     result = result.filter(a =>
-      a.Subject.toLowerCase().includes(searchTerm.value.toLowerCase())
+      a.topic.toLowerCase().includes(searchTerm.value.toLowerCase())
     )
   }
 
   if (selectedCategory.value) {
-    if (selectedCategory.value == 'Subject') {
-      result = result.sort((a, b) => 
-        a.Subject.localeCompare(b.Subject))
+    if (selectedCategory.value == 'topic') {
+      result = result.sort((a, b) =>
+        a.topic.localeCompare(b.topic))
     }
 
-    if (selectedCategory.value == 'Location') {
+    if (selectedCategory.value == 'location') {
       result = result.sort((a, b) =>
-        a.Location.localeCompare(b.Location))
+        a.location.localeCompare(b.location))
     }
 
-    if (selectedCategory.value == 'Price') {
+    if (selectedCategory.value == 'price') {
       result = result.sort((a, b) =>
-        a.Price - b.Price)
+        a.price - b.price)
     }
 
-    if (selectedCategory.value == 'Spaces') {
+    if (selectedCategory.value == 'spaces') {
       result = result.sort((a, b) =>
-        a.Spaces - b.Spaces)
+        a.spaces - b.spaces)
     }
   }
 
@@ -156,10 +161,10 @@ const displayedlessons = computed(() => {
 })
 
 function toggleAddToCartBtn(classItem) {
-  if (user.existsInCart(classItem.id)) {
-    user.removeFromCart(classItem.id)
+  if (user.existsInCart(classItem._id)) {
+    user.removeFromCart(classItem._id)
     classItem.spaces++;
-  } else if (classItem.spaces > 0){
+  } else if (classItem.spaces > 0) {
     user.addToCart(classItem);
     classItem.spaces--;
   }

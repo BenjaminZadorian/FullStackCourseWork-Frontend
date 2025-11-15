@@ -98,6 +98,7 @@ import {ref, computed, inject, onMounted, watch} from 'vue'
 import { saveOrder, updateLessonSpaces } from '../backendApi';
 
 const user = inject("user");
+const store = inject("store");
 
 // Variables for the regex to check the input information
 const fullNameRegex = /^[A-Za-z\s]+$/; // Only allows letters and spaces
@@ -187,11 +188,10 @@ async function handleCheckout() {
 
   if (orderSuccess) {
     for (let i = 0; i < lessonIds.length; i++) {
-      updateLessonSpaces(lessonIds[i], lessonSpaces[i]);
+      // Test this tomorrow
+      store.updateLessonSpaces(lessonIds[i], lessonSpaces[i]);
     }
   }
-
-  // after checkout is valid, clear the cart and empty the input forms
 
   alert(`Thank you for your purchase ${fullName.value}, have a nice day!`)
 

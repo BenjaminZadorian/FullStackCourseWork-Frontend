@@ -25,9 +25,9 @@ export async function updateLessonSpaces(lessonId, newSpaces) {
       });
 
       if (res.ok) {
-        alert("Lesson spaces successfully updated");
+        console.log("Lesson spaces successfully updated");
       } else {
-        alert("Error updating lesson spaces");
+        console.error("Error updating lesson spaces");
       }
 
     } catch (error) {
@@ -124,5 +124,30 @@ export async function saveOrder(userName, userPhone, lessonIds, lessonSpaces) {
         alert("Order error");
         return false;
     }
+}
 
+// POST: Create a new Lesson
+export async function createLesson(lessonData) {
+    try {
+
+        const res = await fetch(`${BACKEND_URL}/lessons`, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(lessonData)
+        });
+
+        const data = await res.json();
+
+        if (!res.ok) {
+            alert(data.message);
+            return null;
+        }
+
+        return data;
+
+    } catch (error) {
+        console.error("Error creating lesson:", error);
+        alert("Error creating lesson");
+        return null;
+  }
 }

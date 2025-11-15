@@ -8,6 +8,7 @@ import Profile from '../views/Profile.vue'
 import Cart from '../views/Cart.vue'
 import Register from '../views/Register.vue'
 import Login from '../views/Login.vue'
+import CreateLesson from '../views/CreateLesson.vue'
 
 // define routes
 const routes = [
@@ -18,6 +19,7 @@ const routes = [
     { path: '/cart', name: "Cart", component: Cart },
     { path: '/register', name: "Register", component: Register},
     { path: '/login', name: "Login", component: Login},
+    { path: '/createLesson', name: "CreateLesson", component: CreateLesson},
     // make sure that github pages always has a page to go to and doesn't break
     {path: '/:pathMatch(.*)*', name: 'NotFound', component: Home}
 ]

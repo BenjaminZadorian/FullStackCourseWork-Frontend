@@ -80,6 +80,7 @@ const links = [
   { text: 'Register', path: '/register' },
   { text: 'Login', path: '/login' },
   { text: user.user.username, path: '/profile' },
+  { text: 'Create Lesson', path: '/createLesson'},
   { text: 'About Us', path: '/about' }
 ]
 

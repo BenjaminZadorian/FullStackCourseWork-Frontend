@@ -28,7 +28,7 @@ export const user = reactive({
 
     // Check if an item exists then add it to the cart if it doesn't
     addToCart(item) {
-        const itemExists = this.cart.find((x) => x.id === item.id);
+        const itemExists = this.cart.find((x) => x._id === item._id);
         if (!itemExists) {
             this.cart.push(item);
         }
@@ -38,12 +38,12 @@ export const user = reactive({
 
     // remove an item from the cart based off its id
     removeFromCart(id) {
-        this.cart = this.cart.filter((x) => x.id !== id)
+        this.cart = this.cart.filter((x) => x._id !== id)
     },
 
     // check if an object already exists in the cart
     existsInCart(id) {
-        return this.cart.some((x) => x.id === id)
+        return this.cart.some((x) => x._id === id)
     },
 
     // get the size of the cart
