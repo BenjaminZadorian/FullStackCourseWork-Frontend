@@ -62,14 +62,18 @@
           <div class="card-footer text-center bg-white">
             <button id="book-now-btn" class="btn w-100" @click="toggleAddToCartBtn(classObject)"
               :style="user.existsInCart(classObject._id) ? 'background-color: #e06689; color: black;' : 'background-color: #9D8189; color: white;'">
-
               <!-- Use v-if to change the text within the button depending on if its in the cart or is full yet -->
               <span v-if="classObject.spaces === 0 && !user.existsInCart(classObject._id)"
                 style="opacity: 0.5; cursor: not-allowed;">Full</span>
               <span v-else-if="user.existsInCart(classObject._id)" style="">Remove from Cart</span>
               <span v-else>Add to Cart</span>
-
             </button>
+
+            <!-- Delete lesson button -->
+            <button class="btn w-100 mt-2" @click="deleteLesson(classObject._id)" style="background-color: #e06689; color: white;">
+              <i class="fa-solid fa-trash"></i> Delete Lesson
+            </button>
+
           </div>
 
         </div>
@@ -160,13 +164,19 @@ const displayedlessons = computed(() => {
   return result
 })
 
-function toggleAddToCartBtn(classItem) {
-  if (user.existsInCart(classItem._id)) {
-    user.removeFromCart(classItem._id)
-    classItem.spaces++;
-  } else if (classItem.spaces > 0) {
-    user.addToCart(classItem);
-    classItem.spaces--;
+function deleteLesson(id) {
+  if (confirm("Are you sure you want to delete this lesson?")) {
+    store.deleteLesson(id);
+  }
+} 
+
+function toggleAddToCartBtn(lessonItem) {
+  if (user.existsInCart(lessonItem._id)) {
+    user.removeFromCart(lessonItem._id)
+    lessonItem.spaces++;
+  } else if (lessonItem.spaces > 0) {
+    user.addToCart(lessonItem);
+    lessonItem.spaces--;
   }
 }
 

@@ -151,3 +151,16 @@ export async function createLesson(lessonData) {
         return null;
   }
 }
+
+// DELETE: delete a lesson
+export async function deleteLesson(id) {
+  const res = await fetch(`${BACKEND_URL}/lessons/${id}`, {
+    method: "DELETE",
+  });
+
+  if (!res.ok) {
+    throw new Error("Error deleting lesson");
+  }
+
+  return res.json();
+}
