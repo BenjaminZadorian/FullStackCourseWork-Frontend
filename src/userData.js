@@ -6,8 +6,8 @@ export const user = reactive({
     orders: [],
     // user object that holds relevant data
     user: {
-        isLoggedIn: true,
-        username: 'Test',
+        isLoggedIn: false,
+        username: '',
         email: '',
         password: '',
         phone : ''

@@ -1,7 +1,7 @@
 <template>
   <nav class="navbar navbar-expand-lg fixed-top shadow-0">
     <div class="container d-flex align-items-center">
-      <!-- Return to homepage by clicking on the Brand name -->
+      <!-- Return to homepage by clicking on the classly icon -->
       <router-link class="navbar-brand fw-bold text-uppercase" to="/">Classly</router-link>
 
       <!-- Create menu button on smaller screens -->
@@ -11,7 +11,7 @@
         </span>
       </button>
 
-      <!-- Collapsible Menu -->
+      <!-- Collapsible menu for when the screen is smaller -->
       <div class="collapse navbar-collapse" :class="{ show: isOpen }">
         <!-- Navbar Links -->
         <ul class="navbar-nav me-auto mb-2 mb-lg-0">

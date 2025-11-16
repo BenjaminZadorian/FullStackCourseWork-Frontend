@@ -9,23 +9,23 @@
       <!-- Displaying all booked classes -->
       <section class="row gy-4">
 
-        <div class="col-md-4" v-for="classObject in user.cart" :key="classObject.id">
+        <div class="col-md-4" v-for="classObject in user.cart" :key="classObject._id">
 
           <div id="class-card" class="card h-100 shadow-sm">
             <div id="card-main-body" class="card-body">
               <i :class="classObject.icon"></i>
-              <h5 class="card-title">{{ classObject.Subject }}</h5>
-              <p class="card-text text-muted small">{{ classObject.Location }}</p>
+              <h5 class="card-title">{{ classObject.subject }}</h5>
+              <p class="card-text text-muted small">{{ classObject.location }}</p>
             </div>
 
             <ul class="list-group list-group-flush">
-              <li class="list-group-item">£{{ classObject.Price }}.00</li>
-              <li class="list-group-item">Spaces Available : {{ classObject.Spaces }}</li>
+              <li class="list-group-item">£{{ classObject.price }}.00</li>
+              <li class="list-group-item">Spaces Available : {{ classObject.spaces }}</li>
             </ul>
 
             <div class="card-footer text-center bg-white">
               <button id="remove-class-btn" class="btn w-100"
-                @click="user.removeFromCart(classObject.id); classObject.Spaces++"
+                @click="user.removeFromCart(classObject._id); classObject.spaces++"
                 style="background-color: #e06689; color: black;">
                 <span>Remove from Cart</span>
               </button>
