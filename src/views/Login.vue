@@ -45,9 +45,15 @@ async function handleLogin() {
     
     const loginCheck = await loginUser(username.value, password.value);
 
-    console.log(JSON.stringify(loginCheck));
+    if (!loginCheck || !loginCheck.user) {
+      alert("Invalid login");
+      return;
+    }    
 
-    user.login(loginCheck.username, loginCheck.password, loginCheck.email, loginCheck.phone); 
+    user.login(loginCheck.user.username, loginCheck.user.email, loginCheck.user.phone);
+
+    console.log("User logged in:", loginCheck);
+
     router.push('/')
   } else {
     alert('Please enter valid credentials.')

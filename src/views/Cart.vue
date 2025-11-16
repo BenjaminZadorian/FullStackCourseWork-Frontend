@@ -95,7 +95,6 @@
 
 <script setup>
 import {ref, computed, inject, onMounted, watch} from 'vue'
-import { saveOrder, updateLessonSpaces } from '../backendApi';
 
 const user = inject("user");
 const store = inject("store");
@@ -184,7 +183,7 @@ async function handleCheckout() {
   const lessonIds = user.cart.map((lesson) => lesson._id);
   const lessonSpaces = user.cart.map((lesson) => lesson.spaces);  
 
-  const orderSuccess = await saveOrder(fullName.value, phoneNumber.value, lessonIds, lessonSpaces)
+  const orderSuccess = store.saveOrder(fullName.value, phoneNumber.value, lessonIds, lessonSpaces)
 
   if (orderSuccess) {
     for (let i = 0; i < lessonIds.length; i++) {

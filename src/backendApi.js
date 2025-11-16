@@ -67,16 +67,11 @@ export async function registerUser(username, email, phone, password) {
 
 // POST: login user
 export async function loginUser(username, password) {
-    const userData = {
-        username,
-        password
-    };
-
     try {
         const res = await fetch(`${BACKEND_URL}/login`, {
             method : "POST",
             headers : { "Content-Type" : "application/json" },
-            body : JSON.stringify(userData)
+            body : JSON.stringify({ username, password })
         });
 
         const data = await res.json();

@@ -16,7 +16,7 @@
         <!-- Navbar Links -->
         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
           <!-- Use v-for loop to printout all navbar links with their respective names and routes-->
-          <li v-for="link in filteredLinks" :key="link.text" class="nav-item">
+          <li v-for="link in [...staticLinks, ...dynamicLinks]" :key="link.text" class="nav-item">
             <router-link class="nav-link px-3 text-dark" :to="link.path">{{ link.text }}</router-link>
           </li>
           <!-- Add a logout button if the user is logged in -->
@@ -65,25 +65,27 @@ function logout() {
 }
 
 // Function to remove login and register links when the user is lgoged in on the page
-const filteredLinks = computed(() => {
-  if (user.user.isLoggedIn) {
-    return links.filter(link => link.text !== 'Login' && link.text !== 'Register')
-  }
-
-  return links.filter(link => link.text !== user.user.username)
-})
+const filteredLinks = computed(() => links.value);
 
 // Nav links as reactive data
-const links = [
+const staticLinks = [
   { text: 'Home', path: '/' },
   { text: 'Lessons', path: '/lessons' },
-  { text: 'Register', path: '/register' },
-  { text: 'Login', path: '/login' },
-  { text: user.user.username, path: '/profile' },
-  { text: 'Create Lesson', path: '/createLesson'},
   { text: 'About Us', path: '/about' }
-]
+];
 
+const dynamicLinks = computed(() => {
+  if (user.user.isLoggedIn) {
+    return [
+      { text: user.user.username, path: '/profile' },
+      { text: 'Create Lesson', path: '/createLesson' },
+    ];
+  }
+  return [
+    { text: 'Login', path: '/login' },
+    { text: 'Register', path: '/register' }
+  ];
+});
 
 </script>
 

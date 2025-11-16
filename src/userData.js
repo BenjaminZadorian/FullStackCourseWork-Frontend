@@ -9,14 +9,12 @@ export const user = reactive({
         isLoggedIn: false,
         username: '',
         email: '',
-        password: '',
         phone : ''
     },
 
-    login(name, password, email, phone) {
+    login(name, email, phone) {
         this.user.isLoggedIn = true;
         this.user.username = name;
-        this.user.password = password;
         this.user.email = email;
         this.user.phone = phone;
     },
@@ -59,7 +57,4 @@ export const user = reactive({
     clearCart(){
         this.cart = [];
     }
-
-    // ---- Order Functions ----
-
 });

@@ -1,5 +1,5 @@
 import { reactive } from "vue";
-import { getLessons, createLesson, updateLessonSpaces, deleteLesson } from "./backendApi.js";
+import { getLessons, createLesson, updateLessonSpaces, deleteLesson, saveOrder } from "./backendApi.js";
 
 // export the reactive object of the cart object and cart functions so that they are global
 export const store = reactive({
@@ -21,6 +21,11 @@ export const store = reactive({
     
     async deleteLesson(lessonId) {
         await deleteLesson(lessonId);
+        await this.refreshStock();
+    },
+
+    async saveOrder(fullName, phoneNumber, lessonIds, lessonSpaces) {
+        await saveOrder(fullName, phoneNumber, lessonIds, lessonSpaces);
         await this.refreshStock();
     }
 
