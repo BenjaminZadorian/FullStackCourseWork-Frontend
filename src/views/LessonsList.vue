@@ -99,7 +99,9 @@
 </style>
 
 <script setup>
-import { ref, computed, onMounted, inject } from 'vue'
+import { ref, computed, onMounted, inject, watch } from 'vue'
+import { searchLessons } from '../backendApi.js'  // <-- import function
+
 
 // inject store into so that the shop can be manipulated
 const store = inject("store");
@@ -107,19 +109,36 @@ const store = inject("store");
 const user = inject("user");
 
 // This will hold lessons fetched from the backend from implement MongoDB
-const lessons = computed(() => store.stock);
+const lessons = ref([]);
 const loading = ref(true);
 
+// Variables for searching and filtering lessons
+const selectedCategory = ref('')
+const searchTerm = ref('')
+
+// fetch all lessons on mounted
 onMounted(async () => {
-  store.refreshStock();
-  loading.value = false;
+  await loadLessons('');
 });
 
-//
+// watch searchTerm and fetch backend results
+watch(searchTerm, async (newTerm) => {
+  await loadLessons(newTerm);
+});
 
-// Variables for searching and filtering lessons
-const searchTerm = ref('')
-const selectedCategory = ref('')
+// Function to call backend search
+async function loadLessons(search = '') {
+  loading.value = true;
+  try {
+    const result = await searchLessons(search); 
+    lessons.value = result || [];
+  } catch (error) {
+    console.error('Error fetching lessons:', error);
+    lessons.value = [];
+  } finally {
+    loading.value = false;
+  }
+}
 
 // Can be either ascending or descending
 const sortOrder = ref('ascending')
@@ -127,13 +146,6 @@ const sortOrder = ref('ascending')
 const displayedlessons = computed(() => {
   // Copy array
   let result = [...lessons.value]
-
-  // If a searchTerm exists, then filter the displayedlessons based on it
-  if (searchTerm.value) {
-    result = result.filter(a =>
-      a.topic.toLowerCase().includes(searchTerm.value.toLowerCase())
-    )
-  }
 
   if (selectedCategory.value) {
     if (selectedCategory.value == 'topic') {

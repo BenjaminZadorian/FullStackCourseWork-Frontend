@@ -159,3 +159,23 @@ export async function deleteLesson(id) {
 
   return res.json();
 }
+
+// GET: backend search for lessons
+export async function searchLessons(query = '') {
+  try {
+    // if there is no query for searching, it defaults to all lessons, othewise it searches
+    const endpoint = query ? `${BACKEND_URL}/lessons/search?q=${encodeURIComponent(query)}` : `${BACKEND_URL}/lessons`;
+
+    const res = await fetch(endpoint);
+
+    if (!res.ok) {
+      throw new Error(`Failed to fetch lessons: ${res.status}`);
+    }
+
+    const data = await res.json();
+    return data;
+  } catch (error) {
+    console.error("Error fetching lessons:", error);
+    return [];
+  }
+}
