@@ -63,20 +63,20 @@ const price = ref(0);
 const spaces = ref(1);
 const lessonDate = ref('');
 // have this be a default value for a lesson icon
-const icon = ref('fa-solid fa-book');
+const icon = ref('fa-solid-fa-book');
 
 // Have 10 options of what the icon could be
 const iconOptions = [
-    { key: 'Code', value: 'fa-solid fa-code'},
-    { key: 'Book', value: 'fa-solid fa-book'},
-    { key: 'Paintbrush', value: 'fa-solid fa-paint-brush'},
-    { key: 'Music Note', value: 'fa-solid fa-music'},
-    { key: 'Football', value: 'fa-solid fa-futbol'},
-    { key: 'Pen', value: 'fa-solid fa-pen'},
-    { key: 'Trophy', value: 'fa-solid fa-trophy'},
-    { key: 'Earth', value: 'fa-solid fa-globe'},
-    { key: 'Headphones', value: 'fa-solid fa-headphones'},
-    { key: 'Star', value: 'fa-solid fa-star'}
+    { key: 'Code', value: 'fa-solid-fa-code.svg'},
+    { key: 'Book', value: 'fa-solid-fa-book.svg'},
+    { key: 'Paintbrush', value: 'fa-solid-fa-paint-brush.svg'},
+    { key: 'Music Note', value: 'fa-solid-fa-music.svg'},
+    { key: 'Football', value: 'fa-solid-fa-futbol.svg'},
+    { key: 'Pen', value: 'fa-solid-fa-pen.svg'},
+    { key: 'Trophy', value: 'fa-solid-fa-trophy.svg'},
+    { key: 'Earth', value: 'fa-solid-fa-globe.svg'},
+    { key: 'Headphones', value: 'fa-solid-fa-headphones.svg'},
+    { key: 'Star', value: 'fa-solid-fa-star.svg'}
 ];
 
 async function handleCreateLesson() {

@@ -42,7 +42,10 @@
         <!-- Main card part -->
         <div id="class-card" class="card h-100 shadow-sm">
           <div id="card-main-body" class="card-body">
-            <i :class="classObject.icon"></i>
+            
+            <!-- Import the svg files from the backend and reduce the size -->
+            <img :src="`${BACKEND_URL}/icons/${classObject.icon}.svg`" style="height: 25px; width: 25px;"></img>
+
             <h5 class="card-title">{{ classObject.topic }}</h5>
             <p class="card-text text-muted small">{{ classObject.location }}</p>
 
@@ -100,7 +103,7 @@
 
 <script setup>
 import { ref, computed, onMounted, inject, watch } from 'vue'
-import { searchLessons } from '../backendApi.js'  // <-- import function
+import { searchLessons, BACKEND_URL } from '../backendApi.js'
 
 
 // inject store into so that the shop can be manipulated
@@ -180,7 +183,7 @@ function deleteLesson(id) {
   if (confirm("Are you sure you want to delete this lesson?")) {
     store.deleteLesson(id);
   }
-} 
+}
 
 function toggleAddToCartBtn(lessonItem) {
   if (user.existsInCart(lessonItem._id)) {
