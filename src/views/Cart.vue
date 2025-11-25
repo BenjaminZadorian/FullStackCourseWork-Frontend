@@ -166,11 +166,9 @@ function validateNumber() {
 }
 
 const isFormValid = computed(() => {
-  if (user.user.isLoggedIn) {
     validateName();
     validateNumber();
     return !fullNameError.value && !phoneError.value;
-  }
 });
 
 async function handleCheckout() {
