@@ -1,0 +1,225 @@
+{
+	"info": {
+		"_postman_id": "96afb233-930c-4aa8-9ca5-0f89a9c194e6",
+		"name": "FullStackCoursework API",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "49656900"
+	},
+	"item": [
+		{
+			"name": "Get Lessons",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://fullstackcoursework-backend.onrender.com/lessons",
+					"protocol": "https",
+					"host": [
+						"fullstackcoursework-backend",
+						"onrender",
+						"com"
+					],
+					"path": [
+						"lessons"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Post Lessons",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{ \"topic\": \"RS\", \"price\": 50, \"location\": \"London\", \"spaces\": 5, \"date\": \"2025-12-01\", \"icon\": \"fa-solid-fa-globe\" }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://fullstackcoursework-backend.onrender.com/lessons",
+					"protocol": "https",
+					"host": [
+						"fullstackcoursework-backend",
+						"onrender",
+						"com"
+					],
+					"path": [
+						"lessons"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Put Lessons",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{ \"newSpaces\": 7 }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://fullstackcoursework-backend.onrender.com/lessons/6925b5399e875e4030abd663",
+					"protocol": "https",
+					"host": [
+						"fullstackcoursework-backend",
+						"onrender",
+						"com"
+					],
+					"path": [
+						"lessons",
+						"6925b5399e875e4030abd663"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete Lesson",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "https://fullstackcoursework-backend.onrender.com/lessons/6925b5399e875e4030abd663",
+					"protocol": "https",
+					"host": [
+						"fullstackcoursework-backend",
+						"onrender",
+						"com"
+					],
+					"path": [
+						"lessons",
+						"6925b5399e875e4030abd663"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Lesson - Search",
+			"request": {
+				"method": "GET",
+				"header": []
+			},
+			"response": []
+		},
+		{
+			"name": "Post Register",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{ \"username\": \"Test User\", \"email\": \"TEST@example.com\", \"password\": \"secret123\", \"phone\": \"123456789\" }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://fullstackcoursework-backend.onrender.com/register",
+					"protocol": "https",
+					"host": [
+						"fullstackcoursework-backend",
+						"onrender",
+						"com"
+					],
+					"path": [
+						"register"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Post Login",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{ \"username\": \"Test User\", \"password\": \"secret123\" }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://fullstackcoursework-backend.onrender.com/login",
+					"protocol": "https",
+					"host": [
+						"fullstackcoursework-backend",
+						"onrender",
+						"com"
+					],
+					"path": [
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Post Order",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{ \"userId\": \"6925b6b29e875e4030abd664\", \"userName\": \"Test user\", \"userPhone\": \"123456789\", \"lessonIds\": [\"lessonId1\",\"lessonId2\"], \"lessonSpaces\": [1,2] }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://fullstackcoursework-backend.onrender.com/orders",
+					"protocol": "https",
+					"host": [
+						"fullstackcoursework-backend",
+						"onrender",
+						"com"
+					],
+					"path": [
+						"orders"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Order - History",
+			"request": {
+				"method": "GET",
+				"header": []
+			},
+			"response": []
+		}
+	]
+}

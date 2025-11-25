@@ -38,7 +38,7 @@ npm install
 npm run dev
 ```
 # Postman API Collection
-Open Postman -> Import -> Choose `postman/FullStackCoursework_API.postman_collection.json`
+Open Postman -> Import -> Choose `Postman/FullStackCoursework_API.postman_collection.json`
 
 
 ### Compile and Minify for Production
