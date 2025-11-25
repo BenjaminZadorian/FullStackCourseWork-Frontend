@@ -181,7 +181,15 @@ async function handleCheckout() {
   const lessonIds = user.cart.map((lesson) => lesson._id);
   const lessonSpaces = user.cart.map((lesson) => lesson.spaces);  
 
-  const orderSuccess = store.saveOrder(fullName.value, phoneNumber.value, lessonIds, lessonSpaces)
+
+  let orderSuccess = false;
+
+  if (user.user.isLoggedIn === true) {
+    orderSuccess = store.saveOrder( user.user._id, fullName.value, phoneNumber.value, lessonIds, lessonSpaces)
+  } else {
+    orderSuccess = store.saveOrder('' ,fullName.value, phoneNumber.value, lessonIds, lessonSpaces)
+  }
+
 
   if (orderSuccess) {
     for (let i = 0; i < lessonIds.length; i++) {

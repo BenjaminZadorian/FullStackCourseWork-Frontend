@@ -1,4 +1,5 @@
 import { reactive } from "vue";
+import { orderHistory } from "./backendApi";
 
 // export the reactive object of the cart object and cart functions so that they are global
 export const user = reactive({
@@ -7,16 +8,20 @@ export const user = reactive({
     // user object that holds relevant data
     user: {
         isLoggedIn: false,
+        _id: '',
         username: '',
         email: '',
         phone : ''
     },
 
-    login(name, email, phone) {
+    async login(_id, name, email, phone) {
         this.user.isLoggedIn = true;
+        this.user._id = _id;
         this.user.username = name;
         this.user.email = email;
         this.user.phone = phone;
+
+        await this.loadOrderHistory();
     },
 
     logout() {
@@ -56,5 +61,14 @@ export const user = reactive({
     // remove all objects inside the cart
     clearCart(){
         this.cart = [];
+    },
+
+    async loadOrderHistory() {
+        if (!this.user._id) {
+            console.log("No user ID found, will not load order history");
+            return;
+        }
+        const history = await orderHistory(this.user._id);
+        this.orders = history;
     }
 });

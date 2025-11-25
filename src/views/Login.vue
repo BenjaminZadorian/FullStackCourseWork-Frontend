@@ -48,9 +48,9 @@ async function handleLogin() {
     if (!loginCheck || !loginCheck.user) {
       alert("Invalid login");
       return;
-    }    
+    }
 
-    user.login(loginCheck.user.username, loginCheck.user.email, loginCheck.user.phone);
+    user.login(loginCheck.user._id, loginCheck.user.username, loginCheck.user.email, loginCheck.user.phone);
 
     console.log("User logged in:", loginCheck);
 

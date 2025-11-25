@@ -89,8 +89,9 @@ export async function loginUser(username, password) {
 }
 
 // POST: save a new order
-export async function saveOrder(userName, userPhone, lessonIds, lessonSpaces) {
+export async function saveOrder(userId, userName, userPhone, lessonIds, lessonSpaces) {
     const orderData = {
+        userId,
         userName,
         userPhone,
         lessonIds,
@@ -158,6 +159,25 @@ export async function deleteLesson(id) {
   }
 
   return res.json();
+}
+
+// GET: get specific users order history
+export async function orderHistory(userId) {
+
+    try {
+        const res = await fetch(`${BACKEND_URL}/orders/user/${userId}`);
+
+        if (!res.ok) {
+            throw new Error(`Failed to fetch order history: ${res.status}`);
+        }
+
+        const data = await res.json();
+        return data;
+
+    } catch (error) {
+        console.error("Error fetchign order history: ", error);
+        return [];
+    }
 }
 
 // GET: backend search for lessons

@@ -45,21 +45,7 @@
     </div>
 
     <div class="mt-5 text-center">
-      <h4>Your Booked Classes</h4>
-      <p v-if="bookedClasses.length === 0" class="text-muted">No classes booked yet.</p>
-
-      <div v-else class="row gy-3 mt-3 justify-content-center">
-        <div v-for="item in bookedClasses" :key="item.id" class="col-md-4">
-          <div class="card h-100 shadow-sm">
-            <div class="card-body">
-              <i :class="item.icon"></i>
-              <h5 class="card-title">{{ item.topic }}</h5>
-              <p class="card-text small text-muted">{{ item.location }}</p>
-              <p class="card-text">Price: £{{ item.price }}</p>
-            </div>
-          </div>
-        </div>
-      </div>
+      <h4>Your Booked Classes: {{ bookedClasses }}</h4>
     </div>
   </div>
 </template>
@@ -76,7 +62,8 @@ const userObject = ref({
 });
 
 // This must be changed from the user cart -> the user order history, this will be a GET from the 'orders' collection stored in the userData.js
-const bookedClasses = ref(user.cart);
+console.log(user.orders);
+const bookedClasses = user.orders.length;
 
 function updateProfile() {
   alert("Profile updated");

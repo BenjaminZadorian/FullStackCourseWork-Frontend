@@ -24,8 +24,8 @@ export const store = reactive({
         await this.refreshStock();
     },
 
-    async saveOrder(fullName, phoneNumber, lessonIds, lessonSpaces) {
-        await saveOrder(fullName, phoneNumber, lessonIds, lessonSpaces);
+    async saveOrder(userId, fullName, phoneNumber, lessonIds, lessonSpaces) {
+        await saveOrder(userId, fullName, phoneNumber, lessonIds, lessonSpaces);
         await this.refreshStock();
     },
 
