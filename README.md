@@ -44,6 +44,4 @@ https://github.com/BenjaminZadorian/FullStackCourseWork-Frontend
 
 ### Github Pages Link
 
-```
-https://benjaminzadorian.github.io/FullStackCourseWork-Frontend/
-```
+[github pages hosted link](https://benjaminzadorian.github.io/FullStackCourseWork-Frontend/)
