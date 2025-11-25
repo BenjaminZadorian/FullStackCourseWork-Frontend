@@ -19,6 +19,13 @@ This template should help get you started developing with Vue 3 in Vite.
 
 See [Vite Configuration Reference](https://vite.dev/config/).
 
+### Github Pages Link
+
+[github pages hosted link](https://benjaminzadorian.github.io/FullStackCourseWork-Frontend/)
+
+### Github Repo Link
+[Github repo link](https://github.com/BenjaminZadorian/FullStackCourseWork-Frontend)
+
 ## Project Setup
 
 ```sh
@@ -30,18 +37,12 @@ npm install
 ```sh
 npm run dev
 ```
+# Postman API Collection
+Open Postman -> Import -> Choose `postman/FullStackCoursework_API.postman_collection.json`
+
 
 ### Compile and Minify for Production
 
 ```sh
 npm run build
 ```
-
-### Github Repo Link
-```
-https://github.com/BenjaminZadorian/FullStackCourseWork-Frontend
-```
-
-### Github Pages Link
-
-[github pages hosted link](https://benjaminzadorian.github.io/FullStackCourseWork-Frontend/)
