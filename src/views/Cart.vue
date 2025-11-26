@@ -14,7 +14,7 @@
           <div id="class-card" class="card h-100 shadow-sm">
             <div id="card-main-body" class="card-body">
               <i :class="classObject.icon"></i>
-              <h5 class="card-title">{{ classObject.subject }}</h5>
+              <h5 class="card-title">{{ classObject.topic }}</h5>
               <p class="card-text text-muted small">{{ classObject.location }}</p>
             </div>
 

@@ -62,6 +62,7 @@ function toggleMenu() {
 
 function logout() {
   user.logout();
+  push('/');
 }
 
 // Function to remove login and register links when the user is lgoged in on the page
